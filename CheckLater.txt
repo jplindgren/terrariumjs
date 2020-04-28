@@ -1,0 +1,5 @@
+Avoid properties being overwritten or set from subclasses?
+https://stackoverflow.com/questions/49001725/how-can-i-avoid-a-function-to-be-overridden-in-the-child-class-in-typescript
+
+
+Thanks to https://victorzhou.com/blog/build-an-io-game-part-1/ for sharing his knowledge of how create a javsacript multiplayer game.

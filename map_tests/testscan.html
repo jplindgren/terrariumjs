@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+
+    <script>
+      window.onload = function () {
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        window.animal = { id: 1, x: 100, y: 100, speed: 2, eyesight: 100 };
+        window.plants = [];
+
+        ctx.fillStyle = "purple";
+        //x + (width/2), y(height/2), radius, startAngle, endAngle, antiClockwise (Math.PI * 2 as endangle will draw a complete circle);
+        ctx.arc(
+          window.animal.x + 5,
+          window.animal.y + 5,
+          window.animal.eyesight,
+          0,
+          Math.PI * 2,
+          false
+        );
+        ctx.fill();
+
+        //animal
+        ctx.fillStyle = "red";
+        ctx.fillRect(window.animal.x, window.animal.y, 10, 10);
+        ctx.save();
+      };
+
+      function scan(otherOrganisms) {
+        //TODO: scan should be based on eyesight attribute
+        const nearbyOrganisms = otherOrganisms.filter(
+          //(o) => o !== organism && o.distanceTo(organism) <= Constants.MAP_SIZE / 100,
+          (o) =>
+            o.id !== window.animal.id &&
+            distanceTo(o, window.animal) <= window.animal.eyesight
+        );
+        return nearbyOrganisms;
+      }
+
+      function distanceTo(organism, animal) {
+        const dx = animal.x - organism.x;
+        const dy = animal.y - organism.y;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      function createPlant() {
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        var dx = document.getElementById("x").value;
+        var dy = document.getElementById("y").value;
+        var plant = { id: 2, x: dx, y: dy };
+        window.plants.push(plant);
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(plant.x, plant.y, 10, 10);
+
+        alert("Items on range: " + scan(window.plants).length);
+      }
+
+      function clear() {
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "purple";
+        ctx.arc(
+          window.animal.x + 5,
+          window.animal.y + 5,
+          window.animal.eyesight,
+          0,
+          Math.PI * 2,
+          false
+        );
+        ctx.fill();
+        ctx.fillStyle = "red";
+        ctx.fillRect(window.animal.x, window.animal.y, 10, 10);
+        ctx.save();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Path Tests</h1>
+    <p>
+      <input type="number" id="x" name="x" min="0" max="800" /><input
+        type="number"
+        id="y"
+        name="y"
+        min="0"
+        max="800"
+      />
+      <br />
+      <button id="btnPath" onclick="createPlant()">Create Plant</button
+      ><button id="btnClear" onclick="clear()">Clear</button>
+    </p>
+    <canvas
+      id="myCanvas"
+      width="800"
+      height="800"
+      style="background-color: #efefef;"
+    ></canvas>
+  </body>
+</html>

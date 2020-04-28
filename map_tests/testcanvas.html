@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testing Canvas</title>
+  </head>
+  <body>
+    <p>Image to use:</p>
+    <img id="scream" width="40" height="40" src="../public/assets/carnivore.svg" alt="Carnivore" />
+
+    <p>Canvas:</p>
+    <canvas id="myCanvas" width="800" height="800" style="border: 1px solid #d3d3d3;">
+      Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <script>
+      window.onload = function () {
+        var player_radius = 20;
+        var me = {
+          x: 100,
+          y: 100,
+        };
+        var organism = {
+          x: 300,
+          y: 300,
+          width: player_radius,
+          height: player_radius,
+          type: "carn",
+          eyesight: 100,
+          energyPoints: 80,
+          maxEnergyPoints: 100,
+        };
+
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        context.fillStyle = "black";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        //this.renderOrganism(me, organism);
+
+        var img = document.getElementById("scream");
+
+        const { x, y, direction } = organism;
+        // const canvasX = canvas.width / 2 + x - me.x;
+        // const canvasY = canvas.height / 2 + y - me.y;
+        const canvasX = x;
+        const canvasY = y;
+
+        // Draw ship
+        context.save();
+        context.translate(canvasX, canvasY);
+        //context.rotate(direction);
+
+        context.drawImage(img, -player_radius, -player_radius, player_radius * 2, player_radius * 2);
+
+        //inside translate, x and y are just added, or subtract from the new 0,0 point set at translate method.
+        context.arc(0, 0, organism.eyesight, 0, Math.PI * 2, false);
+        context.strokeStyle = "white";
+        context.stroke();
+        context.restore();
+
+        /*context.arc(canvasX, canvasY, organism.eyesight, 0, Math.PI * 2, false);
+        context.strokeStyle = "white";
+        context.stroke();
+        */
+
+        // Draw health bar
+        context.fillStyle = "white";
+        context.fillRect(canvasX - player_radius, canvasY + player_radius + 8, player_radius * 2, 2);
+        context.fillStyle = "red";
+        context.fillRect(
+          canvasX - player_radius + (player_radius * 2 * organism.energyPoints) / organism.maxEnergyPoints,
+          canvasY + player_radius + 8,
+          player_radius * 2 * (1 - organism.energyPoints / organism.maxEnergyPoints),
+          2
+        );
+      };
+    </script>
+  </body>
+</html>

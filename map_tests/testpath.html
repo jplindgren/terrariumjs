@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>	
+
+	<script>
+		window.onload = function(){			
+			var canvas = document.getElementById('myCanvas');
+			var ctx = canvas.getContext('2d');
+
+			//brush now is red
+			ctx.fillStyle = 'red';
+
+			//x, y, width, height -> 0,0 => top left corner of the screen
+			//ctx.fillRect(0, 0, 2, 2);
+
+			//ctx.fillStyle = 'green';
+			//x, y, radius, startAngle, endAngle, antiClockwise (Math.PI * 2 as endangle will draw a complete circle);
+			//ctx.arc(100, 100, 50, 0, Math.PI * 2, false);
+			//ctx.fill();
+			
+			window.animal = { x: 100, y:100, speed: 2, mvt2: moveTo2, mvt1: moveTo };
+			//animal
+			ctx.fillRect(animal.x, animal.y, 10, 10);
+			ctx.save();
+		}
+
+		function moveTo2(object) {
+		    let dx = object.x - this.x;
+		    let dy = object.y - this.y;
+		    var length = Math.sqrt(dx * dx + dy * dy);
+
+		    let ndx = dx / length;
+		    let ndy = dy / length;
+
+		    let adx = ndx * this.speed;
+		    let ady = ndy * this.speed;
+
+		    this.x += adx;
+		    this.y += ady;		    
+	  	}
+
+	  	function moveTo(dx, dy) {		    
+		    const dirAngle = Math.atan2(dy - window.animal.y, dx - window.animal.x);
+
+		    window.animal.x += window.animal.speed * Math.cos(dirAngle);
+		    window.animal.y += window.animal.speed * Math.sin(dirAngle);
+		  }
+
+		  function createPath(){		  	
+		  	var canvas = document.getElementById('myCanvas');
+			var ctx = canvas.getContext('2d');
+
+			var dx = document.getElementById('x').value;
+			var dy = document.getElementById('y').value;
+			var plant = { x: dx, y:dy };
+
+		  	ctx.fillStyle = 'green';
+			ctx.fillRect(plant.x, plant.y, 10, 10);
+
+			ctx.strokeStyle = 'black';
+			ctx.lineWidth = 3;
+			ctx.beginPath();
+				
+			ctx.moveTo(window.animal.x, window.animal.y);
+
+			let moveCount = 0;
+		    while (moveCount < 1000 && (Math.trunc(window.animal.x) !== plant.x || Math.trunc(window.animal.y) !== plant.y)) {
+		      moveCount += 1;		      
+		      //animal.mvt2(plant);
+		      window.animal.mvt1(plant.x, plant.y);
+		      ctx.lineTo(window.animal.x, window.animal.y);
+		    }		    
+		    ctx.stroke();
+
+		  }
+
+		  function clearPath(){
+		  	var canvas = document.getElementById('myCanvas');
+			var ctx = canvas.getContext('2d');
+
+		  	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		  	ctx.fillStyle = 'red';			
+			debugger;
+			ctx.fillRect(window.animal.x, window.animal.y, 10, 10);
+			ctx.save();
+		  }
+	</script>
+
+</head>
+<body>	
+	<h1>Path Tests</h1>
+	<p>
+		<input type="number" id="x" name="x" min="0" max="800"/><input type="number" id="y" name="y" min="0" max="800"/>
+		<br/>
+		<button id="btnPath" onclick="createPath()">Path</button><button id="btnClear" onclick="clearPath()">Clear</button>
+	</p>
+	<canvas id="myCanvas" width="800" height="800" style="background-color: #efefef"></canvas>
+</body>
+</html>
