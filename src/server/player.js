@@ -18,7 +18,7 @@ class Player extends ObjectClass {
     return null;
   }
 
-  //TODO: remove
+  // TODO: remove
   getMyCreature() {
     return this.username;
   }

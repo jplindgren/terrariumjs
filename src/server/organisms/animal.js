@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const Constants = require('../../shared/constants');
 const Organism = require('./organism');
 
@@ -34,15 +35,14 @@ class Animal extends Organism {
     return super.update(world, dt);
   }
 
-  //should receive an abstraction of the world state?
+  // should receive an abstraction of the world state?
   scan(otherOrganisms) {
-    //TODO: scan should be based on eyesight attribute
-    const nearbyOrganisms = otherOrganisms.filter((o) => o.id !== this.id && o.distanceTo(this) <= this.eyesight);
+    const nearbyOrganisms = otherOrganisms.filter(o => o.id !== this.id && o.distanceTo(this) <= this.eyesight);
     return nearbyOrganisms;
   }
 
   lookFor(organism) {
-    //todo: implements camouflage for the target?
+    // todo: implements camouflage for the target?
     this.targetOrganism = organism;
   }
 
@@ -51,18 +51,18 @@ class Animal extends Organism {
   }
 
   touch(other) {
-    this.writeLog('Touch: ', other.id);
+    Animal.writeLog('Animal: ', this.id, 'Touch: ', other.id);
   }
 
   attack(other) {
-    //atack should be separated from damage?
+    // atack should be separated from damage?
     if (this.current.stamina < Constants.DEFAULT_STAMINA_CONSUME) return;
 
     this.consumeStamina();
     this.current.hp = Math.max(0, this.current.hp + other.takeDamage(Constants.DEFAULT_DAMAGE));
   }
 
-  //use angles
+  // using angles
   moveTo(dx, dy) {
     if (this.current.stamina < Constants.DEFAULT_STAMINA_CONSUME) return;
     this.consumeStamina();
@@ -73,16 +73,15 @@ class Animal extends Organism {
     this.y += this.dt * this.speed * Math.sin(dirAngle);
   }
 
-  //No Atan, just linear algebra
+  // No Atan, just linear algebra
   moveTo2(organism) {
-    //https://gamedev.stackexchange.com/questions/48119/how-do-i-calculate-how-an-object-will-move-from-one-point-to-another
-    let dx = organism.x - this.x;
-    let dy = organism.y - this.y;
-    var length = Math.sqrt(dx * dx + dy * dy);
+    const dx = organism.x - this.x;
+    const dy = organism.y - this.y;
+    const length = Math.sqrt(dx * dx + dy * dy);
 
-    //normalize
-    let ndx = dx / length;
-    let ndy = dy / length;
+    // normalize
+    const ndx = dx / length;
+    const ndy = dy / length;
 
     this.x += ndx * this.speed;
     this.y += ndy * this.speed;

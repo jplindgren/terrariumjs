@@ -39,9 +39,7 @@ function render() {
   context.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
 
   // Draw all organisms
-  //renderOrganism(me, me);
   others.forEach(renderOrganism.bind(null, me));
-  //others.forEach((o) => renderOrganism(me, o));
 }
 
 function renderBackground(x, y) {
@@ -63,8 +61,7 @@ function renderBackground(x, y) {
 
 // Renders a ship at the given coordinates
 function renderOrganism(me, organism) {
-  debugger;
-  //TODO: why is comming NaN?
+  // TODO: why is comming NaN?
   if (
     organism.type !== 'plant' &&
     organism.type !== 'plantNaN' &&
@@ -72,24 +69,26 @@ function renderOrganism(me, organism) {
     organism.type !== 'herbNaN' &&
     organism.type !== 'carn' &&
     organism.type !== 'carnNaN'
-  )
+  ) {
     return;
-  const { x, y, direction } = organism;
+  }
+
+  const { x, y } = organism;
   const canvasX = canvas.width / 2 + x - me.x;
   const canvasY = canvas.height / 2 + y - me.y;
 
   // Draw ship
   context.save();
   context.translate(canvasX, canvasY);
-  //context.rotate(direction);
+  // context.rotate(direction);
 
   if (organism.type === 'plant' || organism.type === 'plantNaN') {
     context.drawImage(getAsset('arvore.svg'), -organism.radius, -organism.radius, organism.size, organism.size);
   } else {
     context.drawImage(getAsset('herbivore.svg'), -organism.radius, -organism.radius, organism.size, organism.size);
-    //context.arc(0, 0, organism.eyesight, 0, Math.PI * 2, false);
-    //context.strokeStyle = 'white';
-    //context.stroke();
+    // context.arc(0, 0, organism.eyesight, 0, Math.PI * 2, false);
+    // context.strokeStyle = 'white';
+    // context.stroke();
   }
   context.restore();
 

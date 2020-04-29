@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const Constants = require('../../shared/constants');
 const ObjectClass = require('./../object');
 
@@ -14,18 +15,17 @@ class Organism extends ObjectClass {
     this.touched = [];
 
     this.current = {
-      hp: hp,
+      hp,
       age: 0,
       isReproducing: false,
-      stamina: stamina,
+      stamina,
     };
 
     this.footprint = {
-      hp: hp,
-      stamina: stamina,
+      hp,
+      stamina,
     };
 
-    this._dt;
     this.width = this.getSize();
     this.height = this.getSize();
   }
@@ -52,8 +52,8 @@ class Organism extends ObjectClass {
     this.load(world);
 
     if (this.current.isReproducing) {
-      var child = this.reproduce();
-      this.writeLog('info', 'organism is reproducing', {
+      const child = this.reproduce();
+      Organism.writeLog('info', 'organism is reproducing', {
         parentId: this.id,
         child: { id: child.id, age: child.current.age, hp: child.current.hp },
       });
@@ -67,11 +67,13 @@ class Organism extends ObjectClass {
     return world;
   }
 
-  //beginning of turn
-  load() {}
+  // beginning of turn
+  // eslint-disable-next-line class-methods-use-this
+  load() { }
 
-  //end of turn
-  idle() {}
+  // end of turn
+  // eslint-disable-next-line class-methods-use-this
+  idle() { }
 
   canReproduce() {
     return this.current.age >= this.matureSize && !this.current.isReproducing && this.reproductionWaitCounter === 0;
@@ -84,7 +86,7 @@ class Organism extends ObjectClass {
     this.reproductionWaitCounter = 1;
   }
 
-  writeLog(message, ...theArgs) {
+  static writeLog(message, ...theArgs) {
     if (process.env.NODE_ENV === 'development' && 1 === 2) {
       console.log(message, ...theArgs);
     }
@@ -95,12 +97,13 @@ class Organism extends ObjectClass {
   }
 
   takeDamage(damage) {
-    //use some attribute from attacker in future
     this.current.hp = Math.max(0, this.current.hp - damage);
     return Constants.DEFAULT_DAMAGE / 2;
   }
 
-  reproduce() {}
+  // eslint-disable-next-line class-methods-use-this
+  reproduce() { }
+
   touch(targetOrganism) {
     targetOrganism.onTouched(this);
   }
@@ -109,7 +112,10 @@ class Organism extends ObjectClass {
     this.touched.push(organism);
   }
 
-  onReproductionCompleted(child) {}
+  // eslint-disable-next-line class-methods-use-this
+  onReproductionCompleted(child) {
+    Organism.writeLog('Called onReproductionCompleted at: ', this.id, 'Child: ', child.id);
+  }
 
   getRadius() {
     return this.current.age > this.matureSize ? Constants.PLAYER_RADIUS : Constants.PLAYER_SMALL_RADIUS;

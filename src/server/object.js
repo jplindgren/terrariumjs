@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const Constants = require('../shared/constants');
 
 class Object {

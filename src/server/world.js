@@ -4,7 +4,7 @@ const Plant = require('./organisms/plant');
 const SimpleHerbivore = require('./organisms/simple_herbivore');
 const QuadTree = require('./quadtree');
 
-//Saves State of the world
+// Saves State of the world
 class World {
   constructor() {
     this.players = {};
@@ -22,10 +22,11 @@ class World {
   addPlayer(player) {
     this.players[player.id] = player;
 
-    if (player.getMyCreature() === 'plant')
+    if (player.getMyCreature() === 'plant') {
       this.createOrganism(new Plant(this.identityId++, player.id, player.x, player.y, 30, 25, 400));
-    else if (player.getMyCreature() === 'herb')
+    } else if (player.getMyCreature() === 'herb') {
       this.createOrganism(new SimpleHerbivore(this.identityId++, player.id, player.x, player.y, 12, 30, 3.0, 300, 100));
+    }
   }
 
   removePlayer(id) {
@@ -33,9 +34,10 @@ class World {
   }
 
   createOrganism(bornOrganism) {
-    //do not create more than 50 creatures for now.
+    // do not create more than 50 creatures for now.
     if (this.organisms.length > 50) return;
 
+    // eslint-disable-next-line no-param-reassign
     bornOrganism.id = ++this.identityId;
     this.organisms.push(bornOrganism);
     this.quadTree.insert(bornOrganism);
@@ -46,7 +48,7 @@ class World {
   }
 
   buryDeadOrganisms() {
-    this.organisms = this.organisms.filter((organism) => !this.deadOrganisms.includes(organism));
+    this.organisms = this.organisms.filter(organism => !this.deadOrganisms.includes(organism));
     this.deadOrganisms = [];
   }
 
@@ -55,18 +57,24 @@ class World {
   }
 
   increaseYear(tick) {
-    var year = ~~(tick / this.tickYearRatio);
+    // eslint-disable-next-line no-bitwise
+    const year = ~~(tick / this.tickYearRatio);
     this.age.isNewYear = year !== this.age.year;
     this.age.year = year;
   }
 
   makeOlder(organism) {
     if (this.age.isNewYear) {
+      // eslint-disable-next-line no-param-reassign
       organism.current.age++;
-      //keep track of reprodution wait time
+      // keep track of reprodution wait time
       if (organism.reproductionWaitCounter > 0) {
+        // eslint-disable-next-line no-param-reassign
         organism.reproductionWaitCounter++;
-        if (organism.reproductionWaitCounter > Constants.ORGANISM_REPRODUCTION_WAIT_YEARS) organism.reproductionWaitCounter = 0;
+        if (organism.reproductionWaitCounter > Constants.ORGANISM_REPRODUCTION_WAIT_YEARS) {
+          // eslint-disable-next-line no-param-reassign
+          organism.reproductionWaitCounter = 0;
+        }
       }
     }
   }
@@ -77,17 +85,17 @@ class World {
     this.buryDeadOrganisms();
 
     this.quadTree.clear();
-    this.organisms.forEach((organism) => {
+    this.organisms.forEach(organism => {
       this.quadTree.insert(organism);
     });
 
-    this.organisms.forEach((organism) => {
-      //TODO: when is the best time to check collisions
-      var nearByOrganisms = this.quadTree.retrieve(organism.x, organism.y, organism.width, organism.height);
+    this.organisms.forEach(organism => {
+      // TODO: when is the best time to check collisions
+      const nearByOrganisms = this.quadTree.retrieve(organism.x, organism.y, organism.width, organism.height);
       checkCollisions(organism, nearByOrganisms);
     });
 
-    this.organisms.forEach((organism) => {
+    this.organisms.forEach(organism => {
       organism.update(this, dt);
     });
   }

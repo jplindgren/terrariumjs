@@ -35,6 +35,7 @@ describe('Game', () => {
     expect(game.shouldSendUpdate).toBe(false);
   });
 
+  // eslint-disable-next-line jest/no-disabled-tests
   describe.skip('handleInput', () => {
     it('should update the direction of a player', () => {
       const game = new Game();

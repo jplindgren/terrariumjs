@@ -12,8 +12,9 @@ describe('Organism', () => {
   });
 
   it('should not be possible to create with 0 or less energy points', () => {
-    var hp = -12;
+    const hp = -12;
     expect(() => {
+      // eslint-disable-next-line no-new
       new Organism(1, 'onwer#1', -10, -10, 24, hp);
     }).toThrow('An organism cannot be created with less than 1 of energy points');
   });
@@ -24,8 +25,7 @@ describe('Organism', () => {
   });
 
   it('serializeForUpdate should return organism serializable data', () => {
-    var data = organism.serializeForUpdate();
-    console.log(data);
+    const data = organism.serializeForUpdate();
     expect(data).toHaveProperty('id', 'x', 'y', 'matureSize', 'radius', 'size', 'hp', 'maxHp', 'age', 'isReproducing');
   });
 

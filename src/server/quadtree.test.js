@@ -1,13 +1,12 @@
-const Constants = require('../shared/constants');
 const QuadTree = require('./quadtree');
-const applyCollisions = require('./collisions');
+
 
 describe('QuadTree', () => {
   it('should work', () => {
-    let tree = new QuadTree(0, { x: 0, y: 0, width: 800, height: 800 });
+    const tree = new QuadTree(0, { x: 0, y: 0, width: 800, height: 800 });
     tree.clear();
 
-    var objects = [
+    const objects = [
       { x: 10, y: 10, width: 10, height: 10 },
       { x: 15, y: 10, width: 10, height: 10 },
       { x: 20, y: 15, width: 10, height: 10 },
@@ -16,10 +15,11 @@ describe('QuadTree', () => {
       { x: 780, y: 780, width: 10, height: 10 },
     ];
 
-    objects.forEach((element) => {
+    objects.forEach(element => {
       tree.insert(element);
     });
 
-    //console.log(JSON.stringify(tree.getTree(), null, 2));
+    expect(true).toBeTruthy();
+    // console.log(JSON.stringify(tree.getTree(), null, 2));
   });
 });
