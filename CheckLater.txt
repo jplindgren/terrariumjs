@@ -3,3 +3,6 @@ https://stackoverflow.com/questions/49001725/how-can-i-avoid-a-function-to-be-ov
 
 
 Thanks to https://victorzhou.com/blog/build-an-io-game-part-1/ for sharing his knowledge of how create a javsacript multiplayer game.
+
+movement
+// https://gamedev.stackexchange.com/questions/48119/how-do-i-calculate-how-an-object-will-move-from-one-point-to-another

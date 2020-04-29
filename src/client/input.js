@@ -15,14 +15,14 @@ function handleInput(x, y) {
 }
 
 function onKeyDownInput(event) {
-  //minus
+  // minus
   if (event.keyCode === 189 || event.keyCode === 109) {
-    //increase the TICKER_YEAR_RATIO, to slower the game
+    // increase the TICKER_YEAR_RATIO, to slower the game
     changeGameSpeed(+10);
     console.log('speed decreased');
   } else if (event.keyCode === 187 || event.keyCode === 107) {
-    //plus key
-    //the smaller the TICKER_YEAR_RATIO, more fast game
+    // plus key
+    // the smaller the TICKER_YEAR_RATIO, more fast game
     changeGameSpeed(-10);
     console.log('speed increased');
   }

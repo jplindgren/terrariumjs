@@ -4,7 +4,7 @@ const World = require('./../world');
 
 describe('animal', () => {
   it('should go for target', () => {
-    let world = new World();
+    const world = new World();
     const herbivore = new SimpleHerbivore('#1', 'owner#1', 100, 100, null, 3, 2, 10, 100);
     const plant1 = new Plant('#2', 'owner#1', 90, 10, 24, 10, 10);
     const plant2 = new Plant('#3', 'owner#1', 105, 105, 24, 10, 10);
@@ -19,13 +19,12 @@ describe('animal', () => {
     while (counter < 100) {
       counter++;
       herbivore.update(world, 1.5);
-      //console.log(herbivore.x, herbivore.y);
     }
     expect(true).toBe(true);
   });
 
   it('should go for random movement until it is there', () => {
-    let world = new World();
+    const world = new World();
     const herbivore = new SimpleHerbivore('#1', 'owner#1', 100, 100, null, 20, 4, 10, 100);
 
     world.createOrganism(herbivore);
@@ -34,7 +33,6 @@ describe('animal', () => {
     while (counter < 10) {
       counter++;
       herbivore.update(world, 1.5);
-      //console.log(herbivore.x, herbivore.y);
     }
     expect(true).toBe(true);
   });

@@ -20,7 +20,7 @@ describe('animal', () => {
 
     const allOrganisms = [animal, plant1, plant2, plant3];
 
-    var nearBy = animal.scan(allOrganisms);
+    const nearBy = animal.scan(allOrganisms);
 
     expect(nearBy.length).toBe(1);
   });

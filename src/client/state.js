@@ -75,7 +75,7 @@ function interpolateObject(object1, object2, ratio) {
   }
 
   const interpolated = {};
-  Object.keys(object1).forEach((key) => {
+  Object.keys(object1).forEach(key => {
     if (key === 'direction') {
       interpolated[key] = interpolateDirection(object1[key], object2[key], ratio);
     } else {
@@ -86,13 +86,7 @@ function interpolateObject(object1, object2, ratio) {
 }
 
 function interpolateObjectArray(objects1, objects2, ratio) {
-  return objects1.map((o) =>
-    interpolateObject(
-      o,
-      objects2.find((o2) => o.id === o2.id),
-      ratio,
-    ),
-  );
+  return objects1.map(o => interpolateObject(o, objects2.find(o2 => o.id === o2.id), ratio));
 }
 
 // Determines the best way to rotate (cw or ccw) when interpolating a direction.

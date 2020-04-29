@@ -1,12 +1,15 @@
 const Constants = require('../shared/constants');
 
-//Consider others implementations (possible more efficients)
+// Consider others implementations (possible more efficients)
 // https://github.com/pdehn/jsQuad
 // https://github.com/mikechambers/ExamplesByMesh/tree/master/JavaScript/QuadTree/examples
 // https://github.com/timohausmann/quadtree-js XX(this implementation in javascript??)
 // https://github.com/CorentinTh/quadtree-js
+/*
+stackoverflow.com/questions/41946007/efficient-and-well-explained-implementation-of-a-quadtree-for-2d-collision-det
+*/
 
-//naive Implementation
+// naive Implementation
 class QuadTree {
   constructor(level, bounds) {
     this.maxObjects = Constants.QUADTREE_MAXOBJECTS;
@@ -16,13 +19,12 @@ class QuadTree {
     this.bounds = bounds;
     this.nodes = [];
     this.objects = [];
-    //private Quadtree[] nodes;
   }
 
   clear() {
     this.objects = [];
 
-    for (var i = 0; i < this.nodes.length; i++) {
+    for (let i = 0; i < this.nodes.length; i++) {
       if (this.nodes[i] != null) {
         this.nodes[i].clear();
         this.nodes[i] = null;
@@ -66,10 +68,7 @@ class QuadTree {
     if (rectObject.x < verticalMidpoint && rectObject.x + rectObject.width < verticalMidpoint) {
       if (topQuadrant) index = 1;
       else if (bottomQuadrant) index = 2;
-    }
-
-    // Object can completely fit within the right quadrants
-    else if (rectObject.x > verticalMidpoint) {
+    } else if (rectObject.x > verticalMidpoint) { // Object can completely fit within the right quadrants
       if (topQuadrant) index = 0;
       else if (bottomQuadrant) index = 3;
     }
@@ -84,9 +83,9 @@ class QuadTree {
    */
   insert(customObject) {
     if (this.nodes[0] != null) {
-      let index = this.getIndex(customObject);
+      const index = this.getIndex(customObject);
 
-      if (index != -1) {
+      if (index !== -1) {
         this.nodes[index].insert(customObject);
         return;
       }
@@ -101,19 +100,19 @@ class QuadTree {
 
       let i = 0;
       while (i < this.objects.length) {
-        let index = this.getIndex(this.objects[i]);
-        if (index != -1) {
-          let object = this.objects.splice(i, 1);
-          this.nodes[index].insert(customObject);
+        const index = this.getIndex(this.objects[i]);
+        if (index !== -1) {
+          const object = this.objects.splice(i, 1);
+          this.nodes[index].insert(object);
         } else i++;
       }
     }
   }
 
   retrieve2(bounds) {
-    var returnObjects = [];
+    const returnObjects = [];
     const index = this.getIndex(bounds);
-    if (index != -1 && this.nodes[0] != null) {
+    if (index !== -1 && this.nodes[0] != null) {
       returnObjects.push(this.nodes[index].retrieve(bounds));
     }
 
@@ -123,15 +122,16 @@ class QuadTree {
   }
 
   getTree() {
-    if (!this.nodes.length)
+    if (!this.nodes.length) {
       return {
         bounds: this.bounds,
         level: this.level,
         objects: this.objects.slice(),
       };
+    }
 
-    var innerNodes = [];
-    for (var i = 0; i < this.nodes.length; i++) {
+    const innerNodes = [];
+    for (let i = 0; i < this.nodes.length; i++) {
       innerNodes.push(this.nodes[i].getTree());
     }
 
@@ -142,28 +142,19 @@ class QuadTree {
     };
   }
 
-  /*
-   * Return all objects that could collide with the given object
-   * @param Object pRect        bounds of the object to be checked { x, y, width, height }
-   * @Return Array            array with all detected objects
-   */
   retrieve(pRect) {
-    var indexes = this.getIndex(pRect),
-      returnObjects = this.objects;
+    const indexes = this.getIndex(pRect);
+    let returnObjects = this.objects;
 
-    //if we have subnodes, retrieve their objects
+    // if we have subnodes, retrieve their objects
     if (this.nodes.length) {
-      for (var i = 0; i < indexes.length; i++) {
+      for (let i = 0; i < indexes.length; i++) {
         returnObjects = returnObjects.concat(this.nodes[indexes[i]].retrieve(pRect));
       }
     }
 
-    //remove duplicates
-    returnObjects = returnObjects.filter(function (item, index) {
-      return returnObjects.indexOf(item) >= index;
-    });
-
-    return returnObjects;
+    return returnObjects
+      .filter((item, index) => returnObjects.indexOf(item) >= index);
   }
 }
 
