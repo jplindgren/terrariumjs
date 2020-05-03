@@ -28,7 +28,7 @@ describe('World', () => {
       expect(herbivore.current.hp).toBeLessThan(herbivore.footprint.hp);
     }
   });
-  it('from tick 11-20 plant is created and herbivore should target it', () => {
+  it('from tick 11-13 plant is created and herbivore should target it', () => {
     const farPlant = new Plant('#2', 'owner#1', 400, 400, 30, 100, 10);
     const nearPlant = new Plant('#2', 'owner#1', 100, 100, 30, 100, 2);
     world.createOrganism(farPlant);
@@ -40,7 +40,7 @@ describe('World', () => {
 
     const originalDistanceToTarget = herbivore.distanceTo(herbivore.targetOrganism);
 
-    while (tick <= 15) {
+    while (tick <= 13) {
       tick++;
       world.updateState(tick, 1.5);
       const newDistanceToTarget = herbivore.distanceTo(herbivore.targetOrganism);
