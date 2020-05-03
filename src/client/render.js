@@ -63,11 +63,11 @@ function renderBackground(x, y) {
 function renderOrganism(me, organism) {
   // TODO: why is comming NaN?
   if (
-    organism.type !== 'plant' &&
+    organism.type !== Constants.ORGANISMS_TYPES.PLANT &&
     organism.type !== 'plantNaN' &&
-    organism.type !== 'herb' &&
+    organism.type !== Constants.ORGANISMS_TYPES.HERBIVORE &&
     organism.type !== 'herbNaN' &&
-    organism.type !== 'carn' &&
+    organism.type !== Constants.ORGANISMS_TYPES.CARNIVORE &&
     organism.type !== 'carnNaN'
   ) {
     return;
