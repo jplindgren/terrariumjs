@@ -12,6 +12,7 @@ describe('animal', () => {
 
     expect(true).toBe(true);
   });
+
   it('should scan correctly', () => {
     const animal = new Animal('#1', 'owner#1', 100, 100, null, 10, 4, 10, 5);
     const plant1 = new Plant('#2', 'owner#1', 90, 10, 24, 10, 10);

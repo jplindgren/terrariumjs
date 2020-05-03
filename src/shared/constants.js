@@ -6,9 +6,10 @@ module.exports = Object.freeze({
   PLAYER_FIRE_COOLDOWN: 0.25,
 
   ORGANISM_REPRODUCTION_WAIT_YEARS: 10,
-  PLANT_MAX_AGE: 100,
+  ANIMAL_MAX_AGE: 60,
+  PLANT_MAX_AGE: 150,
 
-  TICKER_YEAR_RATIO: 100,
+  TICKER_YEAR_RATIO: 200,
   SPEED_PER_SECOND_RATIO: 60,
 
   QUADTREE_MAXOBJECTS: 5,
@@ -25,5 +26,13 @@ module.exports = Object.freeze({
     INPUT: 'input',
     GAME_OVER: 'dead',
     CHANGE_GAME_SPEED: 'change_speed',
+  },
+  ORGANISMS_TYPES: {
+    PLANT: 'plant',
+    HERBIVORE: 'herb',
+    CARNIVORE: 'carn',
+  },
+  WORLD: {
+    MAX_ORGANISMS: 30,
   },
 });

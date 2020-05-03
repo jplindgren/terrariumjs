@@ -22,10 +22,10 @@ class World {
   addPlayer(player) {
     this.players[player.id] = player;
 
-    if (player.getMyCreature() === 'plant') {
+    if (player.getMyCreature() === Constants.ORGANISMS_TYPES.PLANT) {
       this.createOrganism(new Plant(this.identityId++, player.id, player.x, player.y, 30, 25, 400));
-    } else if (player.getMyCreature() === 'herb') {
-      this.createOrganism(new SimpleHerbivore(this.identityId++, player.id, player.x, player.y, 12, 30, 3.0, 300, 100));
+    } else if (player.getMyCreature() === Constants.ORGANISMS_TYPES.HERBIVORE) {
+      this.createOrganism(new SimpleHerbivore(this.identityId++, player.id, player.x, player.y, 40, 30, 3.0, 300, 100));
     }
   }
 
@@ -34,8 +34,8 @@ class World {
   }
 
   createOrganism(bornOrganism) {
-    // do not create more than 50 creatures for now.
-    if (this.organisms.length > 50) return;
+    // limit the creature creation in test phase
+    if (this.organisms.length > Constants.WORLD.MAX_ORGANISMS) return;
 
     // eslint-disable-next-line no-param-reassign
     bornOrganism.id = ++this.identityId;

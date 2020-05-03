@@ -1,10 +1,12 @@
 const Animal = require('./animal');
+const { ORGANISMS_TYPES } = require('./../../shared/constants');
 
 class SimpleHerbivore extends Animal {
   constructor(id, ownerId, x, y, matureSize, hp, speed, eyesight, stamina) {
     super(id, ownerId, x, y, matureSize, hp, speed, eyesight, stamina);
 
-    this.type = 'herb';
+    // TODO: should be in a base class, or some other workaround
+    this.type = ORGANISMS_TYPES.HERBIVORE;
   }
 
   touch(other) {
@@ -16,6 +18,11 @@ class SimpleHerbivore extends Animal {
   }
 
   idle(world) {
+    if (super.canReproduce()) {
+      super.beginReproducing(this.current.age - this.matureSize);
+      return;
+    }
+
     if (this.targetOrganism && this.targetOrganism.isAlive()) {
       SimpleHerbivore.writeLog('still going for  target: ', this.targetOrganism.id);
       this.moveToTarget();
@@ -23,7 +30,8 @@ class SimpleHerbivore extends Animal {
     }
 
     const nearByOrganism = this.scan(world.organisms);
-    const target = nearByOrganism[0];
+    const target = nearByOrganism.filter(x => x.type === 'plant')
+      .sort(x => this.distanceTo(x))[0];
     if (target) {
       this.lookFor(target);
       this.moveToTarget();
@@ -32,11 +40,9 @@ class SimpleHerbivore extends Animal {
       this.moveTo(this.currentMovement.x, this.currentMovement.y);
     } else {
       // choose random path to go
-      const mx = this.x + Math.random() * 500;
-      const my = this.y + Math.random() * 500;
-      this.currentMovement = { x: mx, y: my };
-      console.log('starting to walk to!! ', mx, my);
-      this.moveTo(mx, my);
+      this.currentMovement = this.getRandomPointFrom(500);
+      console.log('starting to walk to!! ', this.currentMovement.x, this.currentMovement.y);
+      this.moveTo(this.currentMovement.x, this.currentMovement.y);
     }
   }
 }

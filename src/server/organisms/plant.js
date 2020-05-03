@@ -6,7 +6,7 @@ class Plant extends Organism {
     super(id, ownerId, x, y, matureSize, hp, 100);
 
     this.seedSpreadDistance = seedSpreadDistance;
-    this.type = 'plant';
+    this.type = Constants.ORGANISMS_TYPES.PLANT;
   }
 
   isAlive() {
@@ -36,37 +36,17 @@ class Plant extends Organism {
     }
   }
 
-  createSeed() {
-    const angle = Math.random() * Math.PI * 2;
-    const radius = Math.random() * this.seedSpreadDistance;
-    const x = Math.max(0, Math.min(Constants.MAP_SIZE, this.x + radius * Math.cos(angle)));
-    const y = Math.max(0, Math.min(Constants.MAP_SIZE, this.y + radius * Math.sin(angle)));
-
-    return { x, y };
-  }
-
-  /*
-  createSeed2() {
-    var r = Math.random() * this.seedSpreadDistance;
-    var theta = Math.random() * 360;
-    const x = Math.max(0, Math.min(Constants.MAP_SIZE, Math.sqrt(r) * Math.cos(theta)));
-    const y = Math.max(0, Math.min(Constants.MAP_SIZE, Math.sqrt(r) * Math.sin(theta)));
-    return { x: x, y: y };
-  }
-  */
-
   reproduce() {
     super.reproduce();
-    const seedPosition = this.createSeed();
-    return new Plant(
-      null,
+    const seedPosition = this.getRandomPointFrom(this.seedSpreadDistance);
+    const args = [null,
       this.ownerId,
       seedPosition.x,
       seedPosition.y,
       this.matureSize,
       this.footprint.hp,
-      this.seedSpreadDistance,
-    );
+      this.seedSpreadDistance];
+    return new this.constructor(...args);
   }
 
   onReproductionCompleted(child) {
