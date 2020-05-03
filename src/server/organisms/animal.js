@@ -31,6 +31,10 @@ class Animal extends Organism {
     this._targetOrganism = null;
   }
 
+  isAlive() {
+    return super.isAlive() && this.current.age < Constants.ANIMAL_MAX_AGE;
+  }
+
   update(world, dt) {
     return super.update(world, dt);
   }
@@ -47,7 +51,9 @@ class Animal extends Organism {
   }
 
   moveToTarget() {
-    this.moveTo(this.targetOrganism.x, this.targetOrganism.y);
+    if (this.distanceTo(this.targetOrganism) > this.getSize()) {
+      this.moveTo(this.targetOrganism.x, this.targetOrganism.y);
+    }
   }
 
   touch(other) {
@@ -59,7 +65,7 @@ class Animal extends Organism {
     if (this.current.stamina < Constants.DEFAULT_STAMINA_CONSUME) return;
 
     this.consumeStamina();
-    this.current.hp = Math.max(0, this.current.hp + other.takeDamage(Constants.DEFAULT_DAMAGE));
+    this.current.hp = Math.min(this.footprint.hp, this.current.hp + other.takeDamage(Constants.DEFAULT_DAMAGE));
   }
 
   // using angles
@@ -85,6 +91,28 @@ class Animal extends Organism {
 
     this.x += ndx * this.speed;
     this.y += ndy * this.speed;
+  }
+
+  beginReproducing(energySpent) {
+    this.currentMovement = null;
+    return super.beginReproducing(energySpent);
+  }
+
+  // TODO: THis is a problem. How put this method on animal class?
+  reproduce() {
+    super.reproduce();
+    const bornPosition = this.getRandomPointFrom(50);
+    const args = [null,
+      this.ownerId,
+      bornPosition.x,
+      bornPosition.y,
+      this.matureSize,
+      this.footprint.hp,
+      this.speed,
+      this.eyesight,
+      this.footprint.stamina,
+    ];
+    return new this.constructor(...args);
   }
 
   serializeForUpdate() {

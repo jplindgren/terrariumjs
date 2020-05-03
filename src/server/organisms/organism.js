@@ -76,7 +76,10 @@ class Organism extends ObjectClass {
   idle() { }
 
   canReproduce() {
-    return this.current.age >= this.matureSize && !this.current.isReproducing && this.reproductionWaitCounter === 0;
+    return this.current.hp > (this.footprint.hp * 0.75) &&
+      this.current.age >= this.matureSize &&
+      !this.current.isReproducing &&
+      this.reproductionWaitCounter === 0;
   }
 
   beginReproducing(energySpent) {
