@@ -10,3 +10,5 @@ Link for old game
 This game is based on the ideas of game created long long time ago back in .net 1.0. You can check some original content here.
 https://github.com/terrariumapp/terrarium
 https://www.hanselman.com/blog/LearningOpportunityNETTerrariumIsBack.aspx
+
+You do not play the game! Tha game plays you!
