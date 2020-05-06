@@ -2,9 +2,12 @@ const Herbivore = require('../herbivore');
 
 class SimpleHerbivore extends Herbivore {
   onTouched(other) {
-    if (other.isPlant()) {
+    if (other.isPlant() && !this.isEating()) {
       this.stop();
       this.beginEating(other);
+    } else if (other.isCarnivore()) {
+      this.stop();
+      this.beginRunning(this.getRandomPointFrom(100, 500));
     }
   }
 
@@ -22,7 +25,7 @@ class SimpleHerbivore extends Herbivore {
     if (this.isEating() && this.isCurrentHPLowerThan(90)) return;
 
     if (this.current.hp < (this.footprint.hp * 0.2)) { // critical, conserve energy;
-      this.stopMovement();
+      this.stop();
       const nearOrganisms = this.scan(this.eyesight / 2)
         .filter(x => x.type === 'plant')
         .sort(x => this.distanceTo(x));
@@ -47,13 +50,12 @@ class SimpleHerbivore extends Herbivore {
           this.lookFor(target);
           this.beginMoveToTarget();
         } else {
-          const coords = this.getRandomPointFrom(500);
-          // console.log('starting to walk to!! ', coords.x, coords.y);
-          this.beginWalking(coords.x, coords.y);
+          const coords = this.getRandomPointFrom(100, 500);
+          this.beginWalking(coords);
         }
       }
     } else if (!this.isMoving()) {
-      const coords = this.getRandomPointFrom(500);
+      const coords = this.getRandomPointFrom(100, 500);
       // console.log('starting to walk to!! ', coords.x, coords.y);
       this.beginWalking(coords.x, coords.y);
     }

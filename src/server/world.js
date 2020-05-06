@@ -3,6 +3,7 @@ const { checkCollisions } = require('./collisions');
 const Plant = require('./organisms/plant');
 const SimpleHerbivore = require('./organisms/custom_creatures/simple_herbivore');
 const QuadTree = require('./quadtree');
+const Tracker = require('./monitoring/tracker');
 
 // Saves State of the world
 class World {
@@ -17,15 +18,17 @@ class World {
     this.identityId = 0;
 
     this.tickYearRatio = Constants.TICKER_YEAR_RATIO;
+    this.tracker = new Tracker(-1,
+      ['onTouched', 'beginReproducing', 'beginMoveToTarget', 'stop', 'beginRunning', 'beginWalking', 'beginEating']);
   }
 
   addPlayer(player) {
     this.players[player.id] = player;
 
     if (player.getMyCreature() === Constants.ORGANISMS_TYPES.PLANT) {
-      this.createOrganism(new Plant(this.identityId++, player.id, player.x, player.y, 30, 45, 400));
+      this.createOrganism(new Plant(null, player.id, player.x, player.y, 30, 45, 400));
     } else if (player.getMyCreature() === Constants.ORGANISMS_TYPES.HERBIVORE) {
-      this.createOrganism(new SimpleHerbivore(this.identityId++, player.id, player.x, player.y, 40, 60, 4.0, 300, 100));
+      this.createOrganism(new SimpleHerbivore(null, player.id, player.x, player.y, 40, 60, 4.0, 300, 100));
     }
   }
 
@@ -41,6 +44,7 @@ class World {
     bornOrganism.id = ++this.identityId;
     this.organisms.push(bornOrganism);
     this.quadTree.insert(bornOrganism);
+    this.tracker.tryAddTacker(bornOrganism);
   }
 
   killOrganism(organism) {
@@ -61,6 +65,9 @@ class World {
     const year = ~~(tick / this.tickYearRatio);
     this.age.isNewYear = year !== this.age.year;
     this.age.year = year;
+
+    // temp, game should take care of ticks?
+    this.age.currentTick = tick;
   }
 
   makeOlder(organism) {

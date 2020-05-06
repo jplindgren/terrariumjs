@@ -147,7 +147,7 @@ class Animal extends Organism {
   // TODO: THis is a problem. How put this method on animal class?
   reproduce() {
     super.reproduce();
-    const bornPosition = this.getRandomPointFrom(50);
+    const bornPosition = this.getRandomPointFrom(this.getSize(), 80);
     const args = [null,
       this.ownerId,
       bornPosition.x,

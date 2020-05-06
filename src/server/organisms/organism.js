@@ -43,6 +43,7 @@ class Organism extends ObjectClass {
 
   update(world, dt) {
     this.dt = dt;
+    this.tick = world.age.currentTick; // TODO: remove. need to tracker right now.
     this.current.stamina = this.footprint.stamina;
 
     if (!this.isAlive()) {

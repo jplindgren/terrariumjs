@@ -42,7 +42,7 @@ class Plant extends Organism {
 
   reproduce() {
     super.reproduce();
-    const seedPosition = this.getRandomPointFrom(this.seedSpreadDistance);
+    const seedPosition = this.getRandomPointFrom(this.getSize(), this.seedSpreadDistance);
     const args = [null,
       this.ownerId,
       seedPosition.x,
