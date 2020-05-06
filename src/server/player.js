@@ -26,7 +26,6 @@ class Player extends ObjectClass {
   serializeForUpdate() {
     return {
       ...super.serializeForUpdate(),
-      direction: this.direction,
     };
   }
 }

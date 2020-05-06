@@ -1,7 +1,7 @@
 const Constants = require('../shared/constants');
 const { checkCollisions } = require('./collisions');
 const Plant = require('./organisms/plant');
-const SimpleHerbivore = require('./organisms/simple_herbivore');
+const SimpleHerbivore = require('./organisms/custom_creatures/simple_herbivore');
 const QuadTree = require('./quadtree');
 
 // Saves State of the world
@@ -23,9 +23,9 @@ class World {
     this.players[player.id] = player;
 
     if (player.getMyCreature() === Constants.ORGANISMS_TYPES.PLANT) {
-      this.createOrganism(new Plant(this.identityId++, player.id, player.x, player.y, 30, 25, 400));
+      this.createOrganism(new Plant(this.identityId++, player.id, player.x, player.y, 30, 45, 400));
     } else if (player.getMyCreature() === Constants.ORGANISMS_TYPES.HERBIVORE) {
-      this.createOrganism(new SimpleHerbivore(this.identityId++, player.id, player.x, player.y, 40, 30, 3.0, 300, 100));
+      this.createOrganism(new SimpleHerbivore(this.identityId++, player.id, player.x, player.y, 40, 60, 4.0, 300, 100));
     }
   }
 
@@ -91,7 +91,8 @@ class World {
 
     this.organisms.forEach(organism => {
       // TODO: when is the best time to check collisions
-      const nearByOrganisms = this.quadTree.retrieve(organism.x, organism.y, organism.width, organism.height);
+      const nearByOrganisms = this.quadTree
+        .retrieve({ x: organism.x, y: organism.y, width: organism.width, height: organism.height });
       checkCollisions(organism, nearByOrganisms);
     });
 

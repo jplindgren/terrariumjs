@@ -79,12 +79,7 @@ class Game {
   }
 
   getLeaderboard() {
-    /* return Object.values(this.players)
-      .sort((p1, p2) => p2.score - p1.score)
-      .slice(0, 5)
-      .map((p) => ({ username: p.username, score: Math.round(p.score) }));
-      */
-    return this.world.organisms.slice(0, 20)
+    return this.world.organisms.slice(0, 10)
       .map(o => ({ username: `${o.constructor.name}#${o.id}`, score: o.current.age }));
   }
 

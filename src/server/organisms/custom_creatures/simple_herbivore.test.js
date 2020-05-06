@@ -1,9 +1,9 @@
 const SimpleHerbivore = require('./simple_herbivore');
-const Plant = require('./plant');
-const World = require('./../world');
+const Plant = require('../plant');
+const World = require('../../world');
 
 describe('animal', () => {
-  it('should go for target', () => {
+  it('should go for target when hp is not full', () => {
     const world = new World();
     const herbivore = new SimpleHerbivore('#1', 'owner#1', 100, 100, 30, 100, 2, 10, 100);
     const plant1 = new Plant('#2', 'owner#1', 90, 10, 24, 100, 10);
@@ -16,6 +16,7 @@ describe('animal', () => {
     world.createOrganism(plant3);
 
     let counter = 0;
+    herbivore.current.hp = herbivore.footprint.hp * 0.6;
     while (counter < 100) {
       counter++;
       herbivore.update(world, 1.5);

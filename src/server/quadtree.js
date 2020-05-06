@@ -103,21 +103,20 @@ class QuadTree {
         const index = this.getIndex(this.objects[i]);
         if (index !== -1) {
           const object = this.objects.splice(i, 1);
-          this.nodes[index].insert(object);
+          this.nodes[index].insert(object[0]);
         } else i++;
       }
     }
   }
 
   retrieve2(bounds) {
-    const returnObjects = [];
+    let returnObjects = [];
     const index = this.getIndex(bounds);
     if (index !== -1 && this.nodes[0] != null) {
-      returnObjects.push(this.nodes[index].retrieve(bounds));
+      returnObjects = [...returnObjects, ...this.nodes[index].retrieve2(bounds)];
     }
 
-    returnObjects.push(this.objects);
-
+    if (this.objects.length !== 0) returnObjects = [...returnObjects, ...this.objects];
     return returnObjects;
   }
 
