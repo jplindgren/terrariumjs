@@ -9,7 +9,6 @@ describe('Plant', () => {
 
   it('serializeForUpdate should return plant serializable data', () => {
     const data = plant.serializeForUpdate();
-    expect(data).toHaveProperty('seedSpreadDistance', 300);
     expect(data).toHaveProperty('type', 'plant');
   });
 

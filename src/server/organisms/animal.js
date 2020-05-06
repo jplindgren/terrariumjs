@@ -1,34 +1,18 @@
 /* eslint-disable no-underscore-dangle */
 const Constants = require('../../shared/constants');
 const Organism = require('./organism');
+const Walk = require('./actions/walk');
+const Run = require('./actions/run');
+const MoveToTarget = require('./actions/moveToTarget');
 
 class Animal extends Organism {
-  constructor(id, ownerId, x, y, matureSize, hp, speed, eyesight, stamina) {
-    super(id, ownerId, x, y, matureSize, hp, stamina);
+  constructor(id, ownerId, x, y, matureSize, hp, speed, eyesight, stamina, generation) {
+    super(id, ownerId, x, y, matureSize, hp, stamina, generation);
 
     this.speed = speed;
     this.eyesight = eyesight;
 
-    this._targetOrganism = null;
-    this._currentMovement = null;
-  }
-
-  get targetOrganism() {
-    return this._targetOrganism;
-  }
-
-  set targetOrganism(value) {
-    this._targetOrganism = value;
-    this._currentMovement = null;
-  }
-
-  get currentMovement() {
-    return this._currentMovement;
-  }
-
-  set currentMovement(value) {
-    this._currentMovement = value;
-    this._targetOrganism = null;
+    this.targetOrganism = null;
   }
 
   isAlive() {
@@ -39,10 +23,25 @@ class Animal extends Organism {
     return super.update(world, dt);
   }
 
-  // should receive an abstraction of the world state?
-  scan(otherOrganisms) {
-    const nearbyOrganisms = otherOrganisms.filter(o => o.id !== this.id && o.distanceTo(this) <= this.eyesight);
-    return nearbyOrganisms;
+  load(_world) {
+    this.scan = this.getCurrentScan(_world);
+    super.load(_world);
+  }
+
+  idle(_world) {
+    super.idle(_world);
+    this.doPendingActions();
+  }
+
+  // Scan should not return organisms itself, just a visible projection of the organism to the user.
+  getCurrentScan(_world) {
+    return distance => {
+      const eyeSight = Math.max(this.eyesight, distance) || this.eyesight;
+      const nearByOrganisms = _world.quadTree.retrieve2({ x: this.x, y: this.y, width: eyeSight, height: eyeSight });
+      // const nearByOrganisms = this.world.organisms
+      // .filter(o => o.id !== this.id && o.distanceTo(this) <= this.eyesight);
+      return nearByOrganisms.filter(o => o.id !== this.id && o.distanceTo(this) <= eyeSight);
+    };
   }
 
   lookFor(organism) {
@@ -56,25 +55,53 @@ class Animal extends Organism {
     }
   }
 
-  touch(other) {
-    Animal.writeLog('Animal: ', this.id, 'Touch: ', other.id);
-  }
-
   attack(other) {
     // atack should be separated from damage?
     if (this.current.stamina < Constants.DEFAULT_STAMINA_CONSUME) return;
 
-    this.consumeStamina();
+    this.burnStamina(Constants.DEFAULT_STAMINA_CONSUME);
     this.current.hp = Math.min(this.footprint.hp, this.current.hp + other.takeDamage(Constants.DEFAULT_DAMAGE));
   }
 
-  // using angles
+  beginWalking(dx, dy) {
+    this.pendingActions.setCurrentAction(new Walk(dx, dy, this.speed));
+  }
+
+  beginRunning(dx, dy) {
+    this.pendingActions.setCurrentAction(new Run(dx, dy, this.speed));
+  }
+
+  stop() {
+    this.targetOrganism = null;
+    this.pendingActions.clearCurrentAction();
+  }
+
+  beginMoveToTarget() {
+    this.pendingActions.setCurrentAction(new MoveToTarget(this.targetOrganism, this.speed));
+  }
+
+  // temporary
   moveTo(dx, dy) {
+    /*
     if (this.current.stamina < Constants.DEFAULT_STAMINA_CONSUME) return;
     this.consumeStamina();
     this.takeDamage(Constants.DEFAULT_MOVEMENT_COST);
 
     const dirAngle = Math.atan2(dy - this.y, dx - this.x);
+    this.x += this.dt * this.speed * Math.cos(dirAngle);
+    this.y += this.dt * this.speed * Math.sin(dirAngle);
+    */
+    this.customMove(new Walk(dx, dy, this.speed));
+  }
+
+  // using angles
+  // in future take in account, size, distance to generate cost
+  customMove(moveToAction) {
+    if (this.current.stamina < moveToAction.getStaminaCost()) return;
+    this.burnStamina(moveToAction.getStaminaCost());
+    if (this.current.hp > (this.footprint.hp * 0.2)) this.takeDamage(Constants.DEFAULT_MOVEMENT_COST);
+
+    const dirAngle = Math.atan2(moveToAction.y - this.y, moveToAction.x - this.x);
     this.x += this.dt * this.speed * Math.cos(dirAngle);
     this.y += this.dt * this.speed * Math.sin(dirAngle);
   }
@@ -98,6 +125,25 @@ class Animal extends Organism {
     return super.beginReproducing(energySpent);
   }
 
+  isMoving() {
+    return this.pendingActions.isMoving();
+  }
+
+  isEating() {
+    return this.pendingActions.isEating();
+  }
+
+  doPendingActions() {
+    if (this.isMoving()) {
+      const moveAction = this.pendingActions.currentAction;
+      this.customMove(moveAction);
+      if (this.distanceTo(moveAction) < this.getSize()) {
+        if (typeof this.onMoveCompleted === 'function') this.onMoveCompleted(moveAction);
+        this.pendingActions.clearCurrentAction();
+      }
+    }
+  }
+
   // TODO: THis is a problem. How put this method on animal class?
   reproduce() {
     super.reproduce();
@@ -119,7 +165,6 @@ class Animal extends Organism {
     return {
       ...super.serializeForUpdate(),
       type: this.type,
-      eyesight: this.eyesight,
     };
   }
 }

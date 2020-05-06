@@ -1,0 +1,12 @@
+Actions
+// Walk
+// Run
+// Hunt
+// Eat
+// Scan
+// Reproduce
+
+States
+// Full 80%+
+// Ok  30-79%
+// Degraded 1%-29%

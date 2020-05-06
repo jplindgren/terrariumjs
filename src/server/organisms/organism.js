@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 const Constants = require('../../shared/constants');
 const ObjectClass = require('./../object');
+const ContinousActions = require('./actions/continous_actions');
 
 class Organism extends ObjectClass {
-  constructor(id, ownerId, x, y, matureSize, hp, stamina) {
+  constructor(id, ownerId, x, y, matureSize, hp, stamina, generation) {
     super(id, x, y);
 
     this.matureSize = matureSize;
@@ -28,6 +29,8 @@ class Organism extends ObjectClass {
 
     this.width = this.getSize();
     this.height = this.getSize();
+    this.pendingActions = new ContinousActions();
+    this.generation = generation;
   }
 
   get dt() {
@@ -44,6 +47,7 @@ class Organism extends ObjectClass {
 
     if (!this.isAlive()) {
       world.killOrganism(this);
+      this.clean();
       return world;
     }
 
@@ -60,20 +64,32 @@ class Organism extends ObjectClass {
       this.current.isReproducing = false;
       this.onReproductionCompleted(child);
       world.createOrganism(child);
+      this.clean();
       return world;
     }
 
     this.idle(world);
+    this.clean();
     return world;
   }
 
   // beginning of turn
-  // eslint-disable-next-line class-methods-use-this
-  load() { }
+  // eslint-disable-next-line no-unused-vars
+  load(_world) {
+    // maybe we can pass an interface with all visible organism state to the onLoad of the user organism.
+    if (typeof this.onLoad === 'function') this.onLoad();
+  }
 
   // end of turn
-  // eslint-disable-next-line class-methods-use-this
-  idle() { }
+  // eslint-disable-next-line no-unused-vars
+  idle(_world) {
+    // maybe we can pass an interface with all visible organism state to the onLoad of the user organism.
+    if (typeof this.onIdle === 'function') this.onIdle();
+  }
+
+  clean() {
+    this.touched = [];
+  }
 
   canReproduce() {
     return this.current.hp > (this.footprint.hp * 0.75) &&
@@ -101,18 +117,15 @@ class Organism extends ObjectClass {
 
   takeDamage(damage) {
     this.current.hp = Math.max(0, this.current.hp - damage);
-    return Constants.DEFAULT_DAMAGE / 2;
+    return damage * this.getSize() * Constants.DEFAULT_DAMAGE_TAKEN_MODIFIER;
   }
 
   // eslint-disable-next-line class-methods-use-this
   reproduce() { }
 
-  touch(targetOrganism) {
-    targetOrganism.onTouched(this);
-  }
-
-  onTouched(organism) {
-    this.touched.push(organism);
+  touch(otherOrganism) {
+    this.touched.push(otherOrganism);
+    if (typeof this.onTouched === 'function') this.onTouched(otherOrganism);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -128,8 +141,24 @@ class Organism extends ObjectClass {
     return this.getRadius() * 2;
   }
 
-  consumeStamina() {
-    this.current.stamina -= Constants.DEFAULT_STAMINA_CONSUME;
+  burnStamina(spent) {
+    this.current.stamina -= spent;
+  }
+
+  hasEnoughStamina(staminaCost) {
+    return this.current.stamina > staminaCost;
+  }
+
+  isPlant() {
+    return this.type === Constants.ORGANISMS_TYPES.PLANT;
+  }
+
+  isHerbivore() {
+    return this.type === Constants.ORGANISMS_TYPES.HERBIVORE;
+  }
+
+  isCarnivore() {
+    return this.type === Constants.ORGANISMS_TYPES.CARNIVORE;
   }
 
   serializeForUpdate() {
@@ -139,8 +168,6 @@ class Organism extends ObjectClass {
       size: this.getSize(),
       hp: this.current.hp,
       maxHp: this.footprint.hp,
-      age: this.current.age,
-      isReproducing: this.current.isReproducing,
     };
   }
 }

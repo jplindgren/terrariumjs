@@ -2,8 +2,8 @@ const Organism = require('./organism');
 const Constants = require('../../shared/constants');
 
 class Plant extends Organism {
-  constructor(id, ownerId, x, y, matureSize, hp, seedSpreadDistance) {
-    super(id, ownerId, x, y, matureSize, hp, 100);
+  constructor(id, ownerId, x, y, matureSize, hp, seedSpreadDistance, generation) {
+    super(id, ownerId, x, y, matureSize, hp, 100, generation);
 
     this.seedSpreadDistance = seedSpreadDistance;
     this.type = Constants.ORGANISMS_TYPES.PLANT;
@@ -18,13 +18,13 @@ class Plant extends Organism {
     return super.update(world, dt);
   }
 
-  load(world) {
-    super.load(world);
+  load(_world) {
+    this.heal();
+    super.load(_world);
   }
 
-  idle(world) {
-    super.idle(world);
-
+  idle(_world) {
+    super.idle(_world);
     Plant.writeLog('info', 'plant idle', { id: this.id });
     if (super.canReproduce()) {
       Plant.writeLog('info', 'begining reproduction', {
@@ -34,6 +34,10 @@ class Plant extends Organism {
       });
       super.beginReproducing(this.current.age - this.matureSize);
     }
+  }
+
+  heal() {
+    this.current.hp = Math.max(this.footprint.hp, this.current.hp * Constants.DEFAULT_PLANT_HEAL);
   }
 
   reproduce() {
@@ -57,7 +61,6 @@ class Plant extends Organism {
   serializeForUpdate() {
     return {
       ...super.serializeForUpdate(),
-      seedSpreadDistance: this.seedSpreadDistance,
       type: this.type,
     };
   }

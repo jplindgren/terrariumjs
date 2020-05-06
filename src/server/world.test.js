@@ -1,6 +1,6 @@
 const World = require('./world');
 const Plant = require('./organisms/plant');
-const SimpleHerbivore = require('./organisms/simple_herbivore');
+const SimpleHerbivore = require('./organisms/custom_creatures/simple_herbivore');
 
 describe('World', () => {
   it('should work', () => {

@@ -15,9 +15,11 @@ module.exports = Object.freeze({
   QUADTREE_MAXOBJECTS: 5,
   QUADTREE_MAXLEVELS: 5,
 
-  DEFAULT_DAMAGE: 10,
+  DEFAULT_DAMAGE: 2,
+  DEFAULT_DAMAGE_TAKEN_MODIFIER: 0.01,
   DEFAULT_STAMINA_CONSUME: 25,
-  DEFAULT_MOVEMENT_COST: 0.001,
+  DEFAULT_MOVEMENT_COST: 0.0005,
+  DEFAULT_PLANT_HEAL: 0.0001,
 
   MAP_SIZE: 800,
   MSG_TYPES: {
@@ -34,5 +36,9 @@ module.exports = Object.freeze({
   },
   WORLD: {
     MAX_ORGANISMS: 30,
+  },
+  ACTIONS: {
+    MOVE: 'moving',
+    EAT: 'eating',
   },
 });
