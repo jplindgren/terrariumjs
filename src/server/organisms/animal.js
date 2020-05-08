@@ -31,6 +31,7 @@ class Animal extends Organism {
   idle(_world) {
     super.idle(_world);
     this.doPendingActions();
+    this.takeDamage(Constants.DEFAULT_LIVING_COST);
   }
 
   // Scan should not return organisms itself, just a visible projection of the organism to the user.
@@ -38,8 +39,6 @@ class Animal extends Organism {
     return distance => {
       const eyeSight = Math.max(this.eyesight, distance) || this.eyesight;
       const nearByOrganisms = _world.quadTree.retrieve2({ x: this.x, y: this.y, width: eyeSight, height: eyeSight });
-      // const nearByOrganisms = this.world.organisms
-      // .filter(o => o.id !== this.id && o.distanceTo(this) <= this.eyesight);
       return nearByOrganisms.filter(o => o.id !== this.id && o.distanceTo(this) <= eyeSight);
     };
   }
@@ -99,7 +98,7 @@ class Animal extends Organism {
   customMove(moveToAction) {
     if (this.current.stamina < moveToAction.getStaminaCost()) return;
     this.burnStamina(moveToAction.getStaminaCost());
-    if (this.current.hp > (this.footprint.hp * 0.2)) this.takeDamage(Constants.DEFAULT_MOVEMENT_COST);
+    this.takeDamage(Constants.DEFAULT_MOVEMENT_COST);
 
     const dirAngle = Math.atan2(moveToAction.y - this.y, moveToAction.x - this.x);
     this.x += this.dt * this.speed * Math.cos(dirAngle);
