@@ -8,7 +8,7 @@ class MoveToTarget extends Action {
     this.target = target;
     this.speed = speed;
     this.staminaCost = Constants.DEFAULT_STAMINA_CONSUME;
-    this.type = Constants.ACTIONS.RUN;
+    this.type = Constants.ACTIONS.MOVE;
   }
 
   get x() {
