@@ -30,9 +30,9 @@ class Object {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
-  getRandomPointFrom(maxDistance) {
+  getRandomPointFrom(minDistance, maxDistance) {
     const angle = Math.random() * Math.PI * 2;
-    const radius = Math.random() * maxDistance;
+    const radius = Math.max(minDistance, Math.random() * maxDistance);
     const x = Math.max(0, Math.min(Constants.MAP_SIZE, this.x + radius * Math.cos(angle)));
     const y = Math.max(0, Math.min(Constants.MAP_SIZE, this.y + radius * Math.sin(angle)));
 
