@@ -1,0 +1,51 @@
+https://github.com/mourner/rbush
+RBush
+
+number: 100
+maxFill: 16
+insert one by one: 3.310ms
+1000 searches 10%: 10.983ms
+1000 searches 1%: 0.540ms
+1000 searches 0.01%: 0.446ms
+remove 1000 one by one: 1.845ms
+bulk-insert 1M more: 0.848ms
+1000 searches 1%: 1.037ms
+1000 searches 0.01%: 0.317ms
+
+
+number: 1000
+maxFill: 16
+insert one by one: 20.066ms
+1000 searches 10%: 9.027ms
+1000 searches 1%: 1.139ms
+1000 searches 0.01%: 0.742ms
+remove 1000 one by one: 6.945ms
+bulk-insert 1M more: 4.023ms
+1000 searches 1%: 1.371ms
+1000 searches 0.01%: 0.657ms
+
+
+number: 100000
+maxFill: 16
+insert one by one: 343.536ms
+1000 searches 10%: 161.407ms
+1000 searches 1%: 33.999ms
+1000 searches 0.01%: 6.500ms
+remove 1000 one by one: 15.052ms
+bulk-insert 1M more: 160.307ms
+1000 searches 1%: 75.999ms
+1000 searches 0.01%: 11.508ms
+
+
+
+
+number: 1000000
+maxFill: 16
+insert one by one: 3210.559ms
+1000 searches 10%: 2438.660ms
+1000 searches 1%: 404.205ms
+1000 searches 0.01%: 43.713ms
+remove 1000 one by one: 18.359ms
+bulk-insert 1M more: 2036.083ms
+1000 searches 1%: 753.209ms
+1000 searches 0.01%: 92.380ms

@@ -9,7 +9,7 @@ describe('Plant', () => {
 
   it('serializeForUpdate should return plant serializable data', () => {
     const data = plant.serializeForUpdate();
-    expect(data).toHaveProperty('type', 'plant');
+    expect(data).toHaveProperty('fixed.type', 'plant');
   });
 
   // eslint-disable-next-line jest/no-commented-out-tests

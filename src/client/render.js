@@ -23,6 +23,7 @@ window.addEventListener('resize', debounce(40, setCanvasDimensions));
 
 function render() {
   const { me, others } = getCurrentState();
+
   if (!me) {
     return;
   }
@@ -33,13 +34,27 @@ function render() {
   // Draw background
   renderBackground(me.x, me.y);
 
+  const assetMapper = assetTypeMapper();
+
   // Draw boundaries
   context.strokeStyle = 'black';
   context.lineWidth = 1;
   context.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
 
   // Draw all organisms
-  others.forEach(renderOrganism.bind(null, me));
+  others.sort(x => x.fixed.type)
+    .forEach(renderOrganism.bind(null, me, assetMapper));
+
+  // requestAnimationFrame(render);
+}
+
+
+function assetTypeMapper() {
+  const mapper = {};
+  mapper[Constants.ORGANISMS_TYPES.PLANT] = 'arvore_minified.svg';
+  mapper[Constants.ORGANISMS_TYPES.HERBIVORE] = 'herbivore_minified.svg';
+  mapper[Constants.ORGANISMS_TYPES.CARNIVORE] = 'carnivore_minified.svg';
+  return mapper;
 }
 
 function renderBackground(x, y) {
@@ -60,15 +75,11 @@ function renderBackground(x, y) {
 }
 
 // Renders a ship at the given coordinates
-function renderOrganism(me, organism) {
-  // TODO: why is comming NaN?
+function renderOrganism(me, assetMapper, organism) {
   if (
-    organism.type !== Constants.ORGANISMS_TYPES.PLANT &&
-    organism.type !== 'plantNaN' &&
-    organism.type !== Constants.ORGANISMS_TYPES.HERBIVORE &&
-    organism.type !== 'herbNaN' &&
-    organism.type !== Constants.ORGANISMS_TYPES.CARNIVORE &&
-    organism.type !== 'carnNaN'
+    organism.fixed.type !== Constants.ORGANISMS_TYPES.PLANT &&
+    organism.fixed.type !== Constants.ORGANISMS_TYPES.HERBIVORE &&
+    organism.fixed.type !== Constants.ORGANISMS_TYPES.CARNIVORE
   ) {
     return;
   }
@@ -76,30 +87,31 @@ function renderOrganism(me, organism) {
   const { x, y } = organism;
   const canvasX = canvas.width / 2 + x - me.x;
   const canvasY = canvas.height / 2 + y - me.y;
+  const organismRadius = organism.fixed.radius;
+  const organismSize = organism.fixed.size;
 
-  // Draw ship
+  // Draw organism
   context.save();
   context.translate(canvasX, canvasY);
   // context.rotate(direction);
 
-  if (organism.type === 'plant' || organism.type === 'plantNaN') {
-    context.drawImage(getAsset('arvore.svg'), -organism.radius, -organism.radius, organism.size, organism.size);
-  } else {
-    context.drawImage(getAsset('herbivore.svg'), -organism.radius, -organism.radius, organism.size, organism.size);
-    // context.arc(0, 0, organism.eyesight, 0, Math.PI * 2, false);
-    // context.strokeStyle = 'white';
-    // context.stroke();
-  }
+  const asset = assetMapper[organism.fixed.type];
+
+  context.drawImage(getAsset(asset), -organismRadius, -organismRadius, organismSize, organismSize);
+  // context.arc(0, 0, organism.eyesight, 0, Math.PI * 2, false);
+  // context.strokeStyle = 'white';
+  // context.stroke();
+
   context.restore();
 
   // Draw health bar
   context.fillStyle = 'white';
-  context.fillRect(canvasX - organism.radius, canvasY + organism.radius + 8, organism.size, 2);
+  context.fillRect(canvasX - organismRadius, canvasY + organismRadius + 8, organismSize, 2);
   context.fillStyle = 'red';
   context.fillRect(
-    canvasX - organism.radius + (organism.size * organism.hp) / organism.maxHp,
-    canvasY + organism.radius + 8,
-    organism.size * (1 - organism.hp / organism.maxHp),
+    canvasX - organismRadius + (organismSize * organism.hp) / organism.maxHp,
+    canvasY + organismRadius + 8,
+    organismSize * (1 - organism.hp / organism.maxHp),
     2,
   );
 }

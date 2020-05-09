@@ -1,0 +1,36 @@
+//Current implementation
+Original QuadTree
+
+number: 100
+maxFill: 16
+insert one by one: 0.217ms
+1000 searches 10%: 14.163ms
+1000 searches 1%: 8.268ms
+1000 searches 0.01%: 6.624ms
+1000 searches 1%: 7.939ms
+1000 searches 0.01%: 7.994ms
+
+
+
+number: 1000
+maxFill: 16
+insert one by one: 0.496ms
+1000 searches 10%: 72.947ms
+1000 searches 1%: 70.704ms
+1000 searches 0.01%: 75.533ms
+1000 searches 1%: 68.843ms
+1000 searches 0.01%: 70.081ms
+
+
+
+number: 100000
+maxFill: 16
+insert one by one: 14.808ms
+1000 searches 10%: 9005.216ms
+1000 searches 1%: 9139.651ms
+1000 searches 0.01%: 8836.944ms
+1000 searches 1%: 8944.773ms
+1000 searches 0.01%: 8715.402ms
+
+
+Could not be executed with 1000000 (seems too slow);

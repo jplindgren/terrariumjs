@@ -18,7 +18,7 @@ class World {
     this.identityId = 0;
 
     this.tickYearRatio = Constants.TICKER_YEAR_RATIO;
-    this.tracker = new Tracker(-1,
+    this.tracker = new Tracker((o => o.type === Constants.ORGANISMS_TYPES.HERBIVORE),
       ['onTouched', 'beginReproducing', 'beginMoveToTarget', 'stop', 'beginRunning', 'beginWalking', 'beginEating']);
   }
 
@@ -92,6 +92,7 @@ class World {
     this.buryDeadOrganisms();
 
     this.quadTree.clear();
+
     this.organisms.forEach(organism => {
       this.quadTree.insert(organism);
     });

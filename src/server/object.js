@@ -1,3 +1,4 @@
+/* eslint-disable no-bitwise */
 /* eslint-disable no-underscore-dangle */
 const Constants = require('../shared/constants');
 
@@ -42,8 +43,8 @@ class Object {
   serializeForUpdate() {
     return {
       id: this.id,
-      x: this.x,
-      y: this.y,
+      x: ~~(0.5 + this.x),
+      y: ~~(0.5 + this.y),
     };
   }
 }

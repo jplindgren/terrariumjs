@@ -10,7 +10,6 @@ class Game {
     setInterval(this.run.bind(this), 1000 / Constants.SPEED_PER_MINUTE);
     this.tick = 0;
     this.world = new World();
-    // setInterval(this.update.bind(this), 1000 / 60);
   }
 
   addPlayer(socket, username) {
@@ -55,7 +54,7 @@ class Game {
 
     if (!this.world.hasLife()) return;
 
-    ++this.tick;
+    this.tick++;
     this.world.updateState(this.tick, dt);
 
     // Send a game update to each player every other time

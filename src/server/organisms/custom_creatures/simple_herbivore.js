@@ -57,7 +57,7 @@ class SimpleHerbivore extends Herbivore {
 
     if (this.isEating() && this.isCurrentHPLowerThan(90)) return;
 
-    if (this.isCriticalHealth()) { // critical, conserve energy;
+    if (this.isCriticalHealth() && !this.targetOrganism) { // critical, conserve energy;
       this.stop();
       this.scanForPlantAndGo(this.eyesight / 2);
     } else if (this.isWarningHealth()) { // dont waste anergy for nothing
