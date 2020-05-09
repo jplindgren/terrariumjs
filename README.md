@@ -5,6 +5,9 @@ In Terrarium, you can create herbivores, carnivores, or plants and then introduc
 creating a creature fit for survival while maintaining a healthy ecosystem.
 
 Status: On going process!
+![](https://github.com/actions/hello-world/workflows/.github/workflows/nodejs.yml/badge.svg)
+
+![](public/AlphaVersionScreeshots.png)
 
 Link for old game
 This game is based on the ideas of game created long long time ago back in .net 1.0. You can check some original content here.
