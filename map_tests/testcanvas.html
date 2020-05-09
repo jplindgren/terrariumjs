@@ -8,6 +8,7 @@
   <body>
     <p>Image to use:</p>
     <img id="scream" width="40" height="40" src="../public/assets/carnivore.svg" alt="Carnivore" />
+    <img id="atlas" width="40" height="40" src="./untitled.svg" alt="atlas" />
 
     <p>Canvas:</p>
     <canvas id="myCanvas" width="800" height="800" style="border: 1px solid #d3d3d3;">
@@ -38,7 +39,7 @@
         context.fillRect(0, 0, canvas.width, canvas.height);
         //this.renderOrganism(me, organism);
 
-        var img = document.getElementById("scream");
+        var img = document.getElementById("atlas");
 
         const { x, y, direction } = organism;
         // const canvasX = canvas.width / 2 + x - me.x;
@@ -51,7 +52,9 @@
         context.translate(canvasX, canvasY);
         //context.rotate(direction);
 
-        context.drawImage(img, -player_radius, -player_radius, player_radius * 2, player_radius * 2);
+        //context.drawImage(img, -player_radius, -player_radius, player_radius * 2, player_radius * 2);
+        //atlas
+        context.drawImage(img, 0, 150, 100, 100 , -player_radius, -player_radius, player_radius * 2, player_radius * 2);
 
         //inside translate, x and y are just added, or subtract from the new 0,0 point set at translate method.
         context.arc(0, 0, organism.eyesight, 0, Math.PI * 2, false);

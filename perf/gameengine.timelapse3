@@ -1,0 +1,383 @@
+timelapse 3
+
+update: 0.117ms
+inserting quadtree: 0.053ms
+checkcollision: 0.113ms
+update: 0.085ms
+inserting quadtree: 0.046ms
+checkcollision: 0.104ms
+update: 0.091ms
+inserting quadtree: 0.037ms
+checkcollision: 0.111ms
+update: 0.087ms
+inserting quadtree: 0.050ms
+checkcollision: 0.140ms
+update: 0.156ms
+inserting quadtree: 0.044ms
+checkcollision: 0.108ms
+update: 0.108ms
+inserting quadtree: 0.046ms
+checkcollision: 0.151ms
+update: 0.122ms
+inserting quadtree: 0.042ms
+checkcollision: 0.104ms
+update: 0.109ms
+inserting quadtree: 0.040ms
+checkcollision: 0.110ms
+update: 0.094ms
+inserting quadtree: 0.034ms
+checkcollision: 0.109ms
+update: 0.085ms
+inserting quadtree: 0.112ms
+checkcollision: 0.120ms
+update: 0.278ms
+inserting quadtree: 0.086ms
+checkcollision: 0.129ms
+update: 0.096ms
+inserting quadtree: 0.047ms
+checkcollision: 0.112ms
+update: 0.095ms
+inserting quadtree: 0.037ms
+checkcollision: 0.111ms
+update: 0.090ms
+inserting quadtree: 0.169ms
+checkcollision: 0.128ms
+update: 0.119ms
+inserting quadtree: 0.047ms
+checkcollision: 0.106ms
+update: 0.100ms
+inserting quadtree: 0.039ms
+checkcollision: 0.107ms
+update: 0.101ms
+inserting quadtree: 0.047ms
+checkcollision: 0.110ms
+update: 0.121ms
+inserting quadtree: 0.042ms
+checkcollision: 0.118ms
+update: 0.104ms
+inserting quadtree: 0.042ms
+checkcollision: 0.108ms
+update: 0.082ms
+inserting quadtree: 0.046ms
+checkcollision: 0.140ms
+update: 0.081ms
+inserting quadtree: 0.050ms
+checkcollision: 0.158ms
+update: 0.123ms
+inserting quadtree: 0.051ms
+checkcollision: 0.122ms
+update: 0.102ms
+inserting quadtree: 0.040ms
+checkcollision: 0.110ms
+update: 0.091ms
+inserting quadtree: 0.065ms
+checkcollision: 0.121ms
+update: 0.095ms
+inserting quadtree: 0.056ms
+checkcollision: 0.111ms
+update: 0.104ms
+inserting quadtree: 0.087ms
+checkcollision: 0.130ms
+update: 0.114ms
+inserting quadtree: 0.036ms
+checkcollision: 0.116ms
+update: 0.089ms
+inserting quadtree: 0.131ms
+checkcollision: 0.162ms
+update: 0.146ms
+inserting quadtree: 0.050ms
+checkcollision: 0.105ms
+update: 0.091ms
+inserting quadtree: 0.046ms
+checkcollision: 0.113ms
+update: 0.103ms
+inserting quadtree: 0.038ms
+checkcollision: 0.110ms
+update: 0.083ms
+inserting quadtree: 0.074ms
+checkcollision: 0.170ms
+update: 0.125ms
+inserting quadtree: 0.041ms
+checkcollision: 0.115ms
+update: 0.092ms
+inserting quadtree: 0.040ms
+checkcollision: 0.112ms
+update: 0.083ms
+inserting quadtree: 0.037ms
+checkcollision: 0.107ms
+update: 0.074ms
+inserting quadtree: 0.212ms
+checkcollision: 0.135ms
+update: 0.150ms
+inserting quadtree: 0.048ms
+checkcollision: 0.113ms
+update: 0.092ms
+inserting quadtree: 0.049ms
+checkcollision: 0.142ms
+update: 0.093ms
+inserting quadtree: 0.036ms
+checkcollision: 0.102ms
+update: 0.079ms
+inserting quadtree: 0.052ms
+checkcollision: 0.120ms
+update: 0.111ms
+inserting quadtree: 0.041ms
+checkcollision: 0.141ms
+update: 0.092ms
+inserting quadtree: 0.050ms
+checkcollision: 0.154ms
+update: 0.084ms
+inserting quadtree: 0.038ms
+checkcollision: 0.107ms
+update: 0.079ms
+inserting quadtree: 0.055ms
+checkcollision: 0.159ms
+update: 0.114ms
+inserting quadtree: 0.040ms
+checkcollision: 0.107ms
+update: 0.094ms
+inserting quadtree: 0.036ms
+checkcollision: 0.112ms
+update: 0.085ms
+inserting quadtree: 0.036ms
+checkcollision: 0.112ms
+update: 0.076ms
+inserting quadtree: 0.042ms
+checkcollision: 0.178ms
+update: 0.130ms
+inserting quadtree: 0.043ms
+checkcollision: 0.112ms
+update: 0.083ms
+inserting quadtree: 0.040ms
+checkcollision: 0.114ms
+update: 0.082ms
+inserting quadtree: 0.045ms
+checkcollision: 0.242ms
+update: 0.175ms
+inserting quadtree: 0.264ms
+checkcollision: 0.155ms
+update: 0.123ms
+inserting quadtree: 0.056ms
+checkcollision: 0.200ms
+update: 0.136ms
+inserting quadtree: 0.056ms
+checkcollision: 0.141ms
+update: 0.146ms
+inserting quadtree: 0.069ms
+checkcollision: 0.309ms
+update: 0.131ms
+inserting quadtree: 0.050ms
+checkcollision: 0.138ms
+update: 0.136ms
+inserting quadtree: 0.052ms
+checkcollision: 0.135ms
+update: 0.089ms
+inserting quadtree: 0.052ms
+checkcollision: 0.148ms
+update: 0.141ms
+inserting quadtree: 0.043ms
+checkcollision: 0.126ms
+update: 0.088ms
+inserting quadtree: 0.048ms
+checkcollision: 0.114ms
+update: 0.086ms
+inserting quadtree: 0.043ms
+checkcollision: 0.108ms
+update: 0.099ms
+inserting quadtree: 0.046ms
+checkcollision: 0.120ms
+update: 0.110ms
+inserting quadtree: 0.048ms
+checkcollision: 0.114ms
+update: 0.117ms
+inserting quadtree: 0.040ms
+checkcollision: 0.107ms
+update: 0.104ms
+inserting quadtree: 0.037ms
+checkcollision: 0.110ms
+update: 0.078ms
+inserting quadtree: 0.161ms
+checkcollision: 0.163ms
+update: 0.170ms
+inserting quadtree: 0.056ms
+checkcollision: 0.121ms
+update: 0.103ms
+inserting quadtree: 0.047ms
+checkcollision: 0.138ms
+update: 0.107ms
+inserting quadtree: 0.039ms
+checkcollision: 0.110ms
+update: 0.111ms
+inserting quadtree: 0.037ms
+checkcollision: 0.123ms
+update: 0.116ms
+inserting quadtree: 0.043ms
+checkcollision: 0.146ms
+update: 0.100ms
+inserting quadtree: 0.045ms
+checkcollision: 0.131ms
+update: 0.091ms
+inserting quadtree: 0.044ms
+checkcollision: 0.110ms
+update: 0.089ms
+inserting quadtree: 0.389ms
+checkcollision: 0.237ms
+update: 0.118ms
+inserting quadtree: 0.042ms
+checkcollision: 0.110ms
+update: 0.087ms
+inserting quadtree: 0.045ms
+checkcollision: 0.108ms
+update: 0.095ms
+inserting quadtree: 0.044ms
+checkcollision: 0.107ms
+update: 0.087ms
+inserting quadtree: 0.045ms
+checkcollision: 0.137ms
+update: 0.114ms
+inserting quadtree: 0.040ms
+checkcollision: 0.112ms
+update: 0.085ms
+inserting quadtree: 0.052ms
+checkcollision: 0.207ms
+update: 0.097ms
+inserting quadtree: 0.038ms
+checkcollision: 0.109ms
+update: 0.077ms
+inserting quadtree: 0.065ms
+checkcollision: 0.126ms
+update: 0.109ms
+inserting quadtree: 0.054ms
+checkcollision: 0.111ms
+update: 0.080ms
+inserting quadtree: 0.045ms
+checkcollision: 0.110ms
+update: 0.103ms
+inserting quadtree: 0.036ms
+checkcollision: 0.110ms
+update: 0.077ms
+inserting quadtree: 0.037ms
+checkcollision: 0.177ms
+update: 0.079ms
+inserting quadtree: 0.034ms
+checkcollision: 0.120ms
+update: 0.088ms
+inserting quadtree: 0.041ms
+checkcollision: 0.140ms
+update: 0.093ms
+inserting quadtree: 0.046ms
+checkcollision: 0.142ms
+update: 0.087ms
+inserting quadtree: 0.046ms
+checkcollision: 0.117ms
+update: 0.094ms
+inserting quadtree: 0.453ms
+checkcollision: 0.136ms
+update: 0.100ms
+inserting quadtree: 0.046ms
+checkcollision: 0.112ms
+update: 0.091ms
+inserting quadtree: 0.041ms
+checkcollision: 0.114ms
+update: 0.097ms
+inserting quadtree: 0.045ms
+checkcollision: 0.143ms
+update: 0.103ms
+inserting quadtree: 0.047ms
+checkcollision: 0.109ms
+update: 0.081ms
+inserting quadtree: 0.040ms
+checkcollision: 0.197ms
+update: 0.097ms
+inserting quadtree: 0.041ms
+checkcollision: 0.113ms
+update: 0.088ms
+inserting quadtree: 0.048ms
+checkcollision: 0.109ms
+update: 0.092ms
+inserting quadtree: 0.036ms
+checkcollision: 0.104ms
+update: 0.074ms
+inserting quadtree: 0.044ms
+checkcollision: 0.134ms
+update: 0.101ms
+inserting quadtree: 0.041ms
+checkcollision: 0.113ms
+update: 0.083ms
+inserting quadtree: 0.051ms
+checkcollision: 0.116ms
+update: 0.086ms
+inserting quadtree: 0.037ms
+checkcollision: 0.109ms
+update: 0.084ms
+inserting quadtree: 0.045ms
+checkcollision: 0.126ms
+update: 0.123ms
+inserting quadtree: 0.047ms
+checkcollision: 0.105ms
+update: 0.080ms
+inserting quadtree: 0.045ms
+checkcollision: 0.109ms
+update: 0.088ms
+inserting quadtree: 0.056ms
+checkcollision: 0.111ms
+update: 0.076ms
+inserting quadtree: 0.036ms
+checkcollision: 0.109ms
+update: 0.213ms
+inserting quadtree: 0.061ms
+checkcollision: 0.121ms
+update: 0.093ms
+inserting quadtree: 0.048ms
+checkcollision: 0.132ms
+update: 0.144ms
+inserting quadtree: 0.049ms
+checkcollision: 0.114ms
+update: 0.088ms
+inserting quadtree: 0.042ms
+checkcollision: 0.313ms
+update: 0.135ms
+inserting quadtree: 0.058ms
+checkcollision: 0.116ms
+update: 0.100ms
+inserting quadtree: 0.043ms
+checkcollision: 0.133ms
+update: 0.106ms
+inserting quadtree: 0.048ms
+checkcollision: 0.138ms
+update: 0.098ms
+inserting quadtree: 0.053ms
+checkcollision: 0.149ms
+update: 0.152ms
+inserting quadtree: 0.051ms
+checkcollision: 0.134ms
+update: 0.092ms
+inserting quadtree: 0.051ms
+checkcollision: 0.164ms
+update: 0.102ms
+inserting quadtree: 0.037ms
+checkcollision: 0.112ms
+update: 0.085ms
+inserting quadtree: 0.046ms
+checkcollision: 0.126ms
+update: 0.108ms
+inserting quadtree: 0.041ms
+checkcollision: 0.103ms
+update: 0.084ms
+inserting quadtree: 0.039ms
+checkcollision: 0.110ms
+update: 0.081ms
+inserting quadtree: 0.037ms
+checkcollision: 0.111ms
+update: 0.101ms
+inserting quadtree: 0.073ms
+checkcollision: 0.179ms
+update: 0.151ms
+inserting quadtree: 0.043ms
+checkcollision: 0.106ms
+update: 0.076ms
+inserting quadtree: 0.048ms
+checkcollision: 0.142ms
+update: 0.112ms
+inserting quadtree: 0.045ms
+checkcollision: 0.111ms

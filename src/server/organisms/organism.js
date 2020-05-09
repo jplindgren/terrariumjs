@@ -165,10 +165,13 @@ class Organism extends ObjectClass {
   serializeForUpdate() {
     return {
       ...super.serializeForUpdate(),
-      radius: this.getRadius(),
-      size: this.getSize(),
       hp: this.current.hp,
       maxHp: this.footprint.hp,
+      fixed: {
+        radius: this.getRadius(),
+        size: this.getSize(),
+        type: this.type,
+      },
     };
   }
 }

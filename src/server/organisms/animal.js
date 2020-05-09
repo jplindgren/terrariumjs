@@ -159,13 +159,6 @@ class Animal extends Organism {
     ];
     return new this.constructor(...args);
   }
-
-  serializeForUpdate() {
-    return {
-      ...super.serializeForUpdate(),
-      type: this.type,
-    };
-  }
 }
 
 module.exports = Animal;

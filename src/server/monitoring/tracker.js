@@ -1,12 +1,12 @@
 class Tracker {
-  constructor(id, actions) {
-    this.id = id;
+  constructor(specification, actions) {
+    this.specification = specification;
     this.actions = actions;
     this.tick = 0;
   }
 
   tryAddTacker(organism) {
-    if (organism.id === this.id) {
+    if (this.specification(organism)) {
       for (let i = 0; i < this.actions.length; i++) {
         const element = this.actions[i];
         if (typeof organism[element] === 'function') {

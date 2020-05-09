@@ -1,4 +1,4 @@
-const ASSET_NAMES = ['ship.svg', 'bullet.svg', 'icon.svg', 'arvore.svg', 'ship2.svg', 'herbivore.svg', 'carnivore.svg'];
+const ASSET_NAMES = ['arvore_minified.svg', 'herbivore_minified.svg', 'carnivore_minified.svg'];
 
 const assets = {};
 

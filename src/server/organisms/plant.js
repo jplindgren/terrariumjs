@@ -37,7 +37,7 @@ class Plant extends Organism {
   }
 
   heal() {
-    this.current.hp = Math.max(this.footprint.hp, this.current.hp * Constants.DEFAULT_PLANT_HEAL);
+    this.current.hp = Math.min(this.footprint.hp, this.current.hp * Constants.DEFAULT_PLANT_HEAL);
   }
 
   reproduce() {
@@ -56,13 +56,6 @@ class Plant extends Organism {
   onReproductionCompleted(child) {
     super.onReproductionCompleted('base onReproductionCompleted');
     Plant.writeLog('info', 'Plant reproduction completed', { plant: this, child });
-  }
-
-  serializeForUpdate() {
-    return {
-      ...super.serializeForUpdate(),
-      type: this.type,
-    };
   }
 }
 

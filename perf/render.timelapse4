@@ -1,0 +1,12 @@
+render.js:36 currentstate: 0.05908203125ms
+render.js:47 renderBackground: 0.052001953125ms
+render.js:55 renderorganisms: 1.652099609375ms
+render.js:36 currentstate: 0.0703125ms
+render.js:47 renderBackground: 0.031005859375ms
+render.js:55 renderorganisms: 2.22216796875ms
+render.js:36 currentstate: 0.11181640625ms
+render.js:47 renderBackground: 0.105712890625ms
+render.js:55 renderorganisms: 1.594970703125ms
+render.js:36 currentstate: 0.06005859375ms
+render.js:47 renderBackground: 0.02880859375ms
+render.js:55 renderorganisms: 1.6181640625ms
