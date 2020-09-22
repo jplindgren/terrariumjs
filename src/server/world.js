@@ -18,8 +18,15 @@ class World {
     this.identityId = 0;
 
     this.tickYearRatio = Constants.TICKER_YEAR_RATIO;
-    this.tracker = new Tracker((o => o.type === Constants.ORGANISMS_TYPES.HERBIVORE),
-      ['onTouched', 'beginReproducing', 'beginMoveToTarget', 'stop', 'beginRunning', 'beginWalking', 'beginEating']);
+    this.tracker = new Tracker((o) => o.type === Constants.ORGANISMS_TYPES.HERBIVORE, [
+      'onTouched',
+      'beginReproducing',
+      'beginMoveToTarget',
+      'stop',
+      'beginRunning',
+      'beginWalking',
+      'beginEating',
+    ]);
   }
 
   addPlayer(player) {
@@ -28,7 +35,7 @@ class World {
     if (player.getMyCreature() === Constants.ORGANISMS_TYPES.PLANT) {
       this.createOrganism(new Plant(null, player.id, player.x, player.y, 30, 45, 400));
     } else if (player.getMyCreature() === Constants.ORGANISMS_TYPES.HERBIVORE) {
-      this.createOrganism(new SimpleHerbivore(null, player.id, player.x, player.y, 40, 60, 4.0, 300, 100));
+      this.createOrganism(new SimpleHerbivore(null, player.id, player.x, player.y, 40, 60, 8.0, 300, 100));
     }
   }
 
@@ -52,7 +59,7 @@ class World {
   }
 
   buryDeadOrganisms() {
-    this.organisms = this.organisms.filter(organism => !this.deadOrganisms.includes(organism));
+    this.organisms = this.organisms.filter((organism) => !this.deadOrganisms.includes(organism));
     this.deadOrganisms = [];
   }
 
@@ -93,18 +100,22 @@ class World {
 
     this.quadTree.clear();
 
-    this.organisms.forEach(organism => {
+    this.organisms.forEach((organism) => {
       this.quadTree.insert(organism);
     });
 
-    this.organisms.forEach(organism => {
+    this.organisms.forEach((organism) => {
       // TODO: when is the best time to check collisions
-      const nearByOrganisms = this.quadTree
-        .retrieve({ x: organism.x, y: organism.y, width: organism.width, height: organism.height });
+      const nearByOrganisms = this.quadTree.retrieve({
+        x: organism.x,
+        y: organism.y,
+        width: organism.width,
+        height: organism.height,
+      });
       checkCollisions(organism, nearByOrganisms);
     });
 
-    this.organisms.forEach(organism => {
+    this.organisms.forEach((organism) => {
       organism.update(this, dt);
     });
   }
