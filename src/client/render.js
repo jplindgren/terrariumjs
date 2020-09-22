@@ -1,5 +1,5 @@
 import { debounce } from 'throttle-debounce';
-import { getAsset } from './assets';
+import { getAsset, test } from './assets';
 import { getCurrentState } from './state';
 
 const Constants = require('../shared/constants');
@@ -8,6 +8,7 @@ const { MAP_SIZE } = Constants;
 
 // Get the canvas graphics context
 const canvas = document.getElementById('game-canvas');
+
 const context = canvas.getContext('2d');
 setCanvasDimensions();
 
@@ -34,6 +35,8 @@ function render() {
   // Draw background
   renderBackground(me.x, me.y);
 
+  console.log('HOW MANY TIMES');
+
   const assetMapper = assetTypeMapper();
 
   // Draw boundaries
@@ -42,12 +45,10 @@ function render() {
   context.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
 
   // Draw all organisms
-  others.sort(x => x.fixed.type)
-    .forEach(renderOrganism.bind(null, me, assetMapper));
+  others.sort((x) => x.fixed.type).forEach(renderOrganism.bind(null, me, assetMapper));
 
   // requestAnimationFrame(render);
 }
-
 
 function assetTypeMapper() {
   const mapper = {};
@@ -72,6 +73,11 @@ function renderBackground(x, y) {
   backgroundGradient.addColorStop(1, 'gray');
   context.fillStyle = backgroundGradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
+
+  //TODO: add background tileset, but we have to load it outside the re-render
+  // var ptrn = context.createPattern(getAsset('terrain1.jpg'), 'repeat'); // Create a pattern with this image, and set it to "repeat".
+  // context.fillStyle = ptrn;
+  // context.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
 }
 
 // Renders a ship at the given coordinates
