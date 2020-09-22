@@ -29,7 +29,16 @@ function onKeyDownInput(event) {
 }
 
 export function startCapturingInput() {
-  window.addEventListener('mousemove', onMouseInput);
+  var endMove = function () {
+    window.removeEventListener('mousemove', onMouseInput);
+    window.removeEventListener('mouseup', endMove);
+  };
+  window.addEventListener('mousedown', function (event) {
+    event.stopPropagation(); // remove if you do want it to propagate ..
+    window.addEventListener('mousemove', onMouseInput);
+    window.addEventListener('mouseup', endMove);
+  });
+
   window.addEventListener('click', onMouseInput);
   window.addEventListener('touchstart', onTouchInput);
   window.addEventListener('touchmove', onTouchInput);
@@ -38,7 +47,7 @@ export function startCapturingInput() {
 }
 
 export function stopCapturingInput() {
-  window.removeEventListener('mousemove', onMouseInput);
+  window.removeEventListener('mousedown', onMouseInput);
   window.removeEventListener('click', onMouseInput);
   window.removeEventListener('touchstart', onTouchInput);
   window.removeEventListener('touchmove', onTouchInput);

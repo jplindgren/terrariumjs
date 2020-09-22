@@ -19,7 +19,7 @@ class Game {
     const x = Constants.MAP_SIZE * (0.25 + Math.random() * 0.5); // generate deviation 25% to 75% from mapsize
     const y = Constants.MAP_SIZE * (0.25 + Math.random() * 0.5); // generate deviation 25% to 75% from mapsize
 
-    this.world.addPlayer(new Player(socket.id, username, x, y));
+    this.world.addPlayer(new Player(socket.id, username, x, y, 6));
   }
 
   removePlayer(socket) {
@@ -27,13 +27,8 @@ class Game {
     this.world.removePlayer(socket.id);
   }
 
-  // temp remove until fix it
-  // eslint-disable-next-line no-unused-vars
   handleInput(socket, dir) {
-    if (this.world.players[socket.id]) {
-      // this.world.players[socket.id].setDirection(dir);
-      // this.world.players[socket.id].update(0.05);
-    }
+    if (this.world.players[socket.id]) this.world.players[socket.id].move(dir);
   }
 
   // just for test, cannot change it in multiplayer?
@@ -60,7 +55,7 @@ class Game {
     // Send a game update to each player every other time
     if (this.shouldSendUpdate) {
       const leaderboard = this.getLeaderboard();
-      Object.keys(this.sockets).forEach(playerID => {
+      Object.keys(this.sockets).forEach((playerID) => {
         const socket = this.sockets[playerID];
         const player = this.world.players[playerID];
 
@@ -78,8 +73,7 @@ class Game {
   }
 
   getLeaderboard() {
-    return this.world.organisms.slice(0, 10)
-      .map(o => ({ username: `${o.constructor.name}#${o.id}`, score: o.current.age }));
+    return this.world.organisms.slice(0, 10).map((o) => ({ username: `${o.constructor.name}#${o.id}`, score: o.current.age }));
   }
 
   createUpdate(me, leaderboard) {
@@ -90,7 +84,7 @@ class Game {
     return {
       t: Date.now(),
       me: me.serializeForUpdate(),
-      others: this.world.organisms.map(p => p.serializeForUpdate()),
+      others: this.world.organisms.map((p) => p.serializeForUpdate()),
       leaderboard,
     };
   }

@@ -22,7 +22,7 @@ module.exports = Object.freeze({
   DEFAULT_LIVING_COST: 0.00015,
   DEFAULT_PLANT_HEAL: 1.0001,
 
-  MAP_SIZE: 800,
+  MAP_SIZE: 1600,
   MSG_TYPES: {
     JOIN_GAME: 'join_game',
     GAME_UPDATE: 'update',
