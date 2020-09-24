@@ -2,6 +2,7 @@ const Constants = require('../shared/constants');
 const { checkCollisions } = require('./collisions');
 const Plant = require('./organisms/plant');
 const SimpleHerbivore = require('./organisms/custom_creatures/simple_herbivore');
+const SimpleCarnivore = require('./organisms/custom_creatures/simple_carnivore');
 const QuadTree = require('./quadtree');
 const Tracker = require('./monitoring/tracker');
 
@@ -36,6 +37,8 @@ class World {
       this.createOrganism(new Plant(null, player.id, player.x, player.y, 30, 45, 400));
     } else if (player.getMyCreature() === Constants.ORGANISMS_TYPES.HERBIVORE) {
       this.createOrganism(new SimpleHerbivore(null, player.id, player.x, player.y, 40, 60, 8.0, 300, 100));
+    } else if (player.getMyCreature() === Constants.ORGANISMS_TYPES.CARNIVORE) {
+      this.createOrganism(new SimpleCarnivore(null, player.id, player.x, player.y, 60, 50, 8.0, 200, 60));
     }
   }
 
