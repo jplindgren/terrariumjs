@@ -19,7 +19,7 @@ class World {
     this.identityId = 0;
 
     this.tickYearRatio = Constants.TICKER_YEAR_RATIO;
-    this.tracker = new Tracker((o) => o.type === Constants.ORGANISMS_TYPES.HERBIVORE, [
+    this.tracker = new Tracker(o => o.type === Constants.ORGANISMS_TYPES.HERBIVORE, [
       'onTouched',
       'beginReproducing',
       'beginMoveToTarget',
@@ -62,7 +62,7 @@ class World {
   }
 
   buryDeadOrganisms() {
-    this.organisms = this.organisms.filter((organism) => !this.deadOrganisms.includes(organism));
+    this.organisms = this.organisms.filter(organism => !this.deadOrganisms.includes(organism));
     this.deadOrganisms = [];
   }
 
@@ -103,11 +103,11 @@ class World {
 
     this.quadTree.clear();
 
-    this.organisms.forEach((organism) => {
+    this.organisms.forEach(organism => {
       this.quadTree.insert(organism);
     });
 
-    this.organisms.forEach((organism) => {
+    this.organisms.forEach(organism => {
       // TODO: when is the best time to check collisions
       const nearByOrganisms = this.quadTree.retrieve({
         x: organism.x,
@@ -118,7 +118,7 @@ class World {
       checkCollisions(organism, nearByOrganisms);
     });
 
-    this.organisms.forEach((organism) => {
+    this.organisms.forEach(organism => {
       organism.update(this, dt);
     });
   }

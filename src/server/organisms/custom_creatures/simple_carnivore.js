@@ -1,4 +1,4 @@
-const Carnivore = require('../Carnivore');
+const Carnivore = require('../carnivore');
 
 class SimpleCarnivore extends Carnivore {
   onTouched(other) {
@@ -30,8 +30,8 @@ class SimpleCarnivore extends Carnivore {
 
   getTarget(distance) {
     return this.scan(distance)
-      .filter((x) => x.isHerbivore())
-      .sort((x) => this.distanceTo(x))[0];
+      .filter(x => x.isHerbivore())
+      .sort(x => this.distanceTo(x))[0];
   }
 
   hunt(target) {
@@ -75,8 +75,8 @@ class SimpleCarnivore extends Carnivore {
     } else if (this.isGoodHealth() && !this.isMoving()) {
       if (!this.targetOrganism) {
         const target = this.scan()
-          .filter((x) => x.isHerbivore())
-          .sort((x) => this.distanceTo(x))[0];
+          .filter(x => x.isHerbivore())
+          .sort(x => this.distanceTo(x))[0];
         if (target) {
           this.hunt(target);
         } else {

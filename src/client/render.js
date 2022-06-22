@@ -1,5 +1,5 @@
 import { debounce } from 'throttle-debounce';
-import { getAsset, test } from './assets';
+import { getAsset } from './assets';
 import { getCurrentState } from './state';
 
 const Constants = require('../shared/constants');
@@ -45,7 +45,7 @@ function render() {
   context.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
 
   // Draw all organisms
-  others.sort((x) => x.fixed.type).forEach(renderOrganism.bind(null, me, assetMapper));
+  others.sort(x => x.fixed.type).forEach(renderOrganism.bind(null, me, assetMapper));
 
   // requestAnimationFrame(render);
 }
@@ -74,8 +74,11 @@ function renderBackground(x, y) {
   context.fillStyle = backgroundGradient;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
-  //TODO: add background tileset, but we have to load it outside the re-render
-  // var ptrn = context.createPattern(getAsset('terrain1.jpg'), 'repeat'); // Create a pattern with this image, and set it to "repeat".
+  // TODO: add background tileset, but we have to load it outside the re-render
+
+  // Create a pattern with this image, and set it to "repeat".
+  // var ptrn = context.createPattern(getAsset('terrain1.jpg'), 'repeat');
+
   // context.fillStyle = ptrn;
   // context.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
 }

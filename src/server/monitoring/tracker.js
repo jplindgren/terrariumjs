@@ -25,7 +25,9 @@ class Tracker {
       const end = new Date();
       const duration = end.getTime() - start.getTime();
 
-      console.dir(`TICK: ${this.tick}: ${originalFunc.name} took ${duration} ms to execute. Called with parameters: ${args}`, { depth: null });
+      const m = `TICK: ${this.tick}: ${originalFunc.name}
+        took ${duration} ms to execute. Called with parameters: ${args}`;
+      console.dir(m, { depth: null });
       return returnVal;
     };
   }

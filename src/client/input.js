@@ -29,11 +29,11 @@ function onKeyDownInput(event) {
 }
 
 export function startCapturingInput() {
-  var endMove = function () {
+  const endMove = function fEndMove() {
     window.removeEventListener('mousemove', onMouseInput);
     window.removeEventListener('mouseup', endMove);
   };
-  window.addEventListener('mousedown', function (event) {
+  window.addEventListener('mousedown', event => {
     event.stopPropagation(); // remove if you do want it to propagate ..
     window.addEventListener('mousemove', onMouseInput);
     window.addEventListener('mouseup', endMove);

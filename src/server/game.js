@@ -55,7 +55,7 @@ class Game {
     // Send a game update to each player every other time
     if (this.shouldSendUpdate) {
       const leaderboard = this.getLeaderboard();
-      Object.keys(this.sockets).forEach((playerID) => {
+      Object.keys(this.sockets).forEach(playerID => {
         const socket = this.sockets[playerID];
         const player = this.world.players[playerID];
 
@@ -73,7 +73,8 @@ class Game {
   }
 
   getLeaderboard() {
-    return this.world.organisms.slice(0, 10).map((o) => ({ username: `${o.constructor.name}#${o.id}`, score: o.current.age }));
+    return this.world.organisms.slice(0, 10)
+      .map(o => ({ username: `${o.constructor.name}#${o.id}`, score: o.current.age }));
   }
 
   createUpdate(me, leaderboard) {
@@ -84,7 +85,7 @@ class Game {
     return {
       t: Date.now(),
       me: me.serializeForUpdate(),
-      others: this.world.organisms.map((p) => p.serializeForUpdate()),
+      others: this.world.organisms.map(p => p.serializeForUpdate()),
       leaderboard,
     };
   }
